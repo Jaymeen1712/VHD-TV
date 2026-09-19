@@ -17,7 +17,7 @@ body {
 /* Slim, brand-tinted scrollbar for our own scroll containers */
 @utility scrollbar-brand {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-primary) transparent;
+  scrollbar-color: rgb(103 232 249 / 28%) transparent;
   scrollbar-gutter: stable;
 
   &::-webkit-scrollbar {
@@ -29,20 +29,21 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgb(103 232 249 / 40%);
+    background-color: rgb(103 232 249 / 18%);
     border: 3px solid transparent;
     background-clip: content-box;
     border-radius: 9999px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(103 232 249 / 70%);
+    background-color: rgb(103 232 249 / 40%);
   }
 }
 
 /* Shared horizontal rhythm for page sections */
 :root {
   --shell-x: 1rem;
+  --header-h: 4.5rem;
 }
 
 @media (width >= 40rem) {

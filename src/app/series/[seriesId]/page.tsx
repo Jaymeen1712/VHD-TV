@@ -46,7 +46,7 @@ const SeriesPage = async ({ params }: SeriesPageProps) => {
   if (!seriesSingleResponse) notFound();
 
   return (
-    <div className="animate-fade-in flex-1 bg-neutral-900">
+    <div className="animate-fade-in flex-1 flow-root bg-neutral-900">
       {!seriesSingleErrors && !seriesSingleCreditsErrors && (
         <MediaShowContainer
           data={seriesSingleResponse}

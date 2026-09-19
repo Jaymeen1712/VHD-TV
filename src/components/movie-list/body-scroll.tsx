@@ -43,7 +43,7 @@ const MovieListBodyScroll = ({
   return (
     <div>
       <div
-        className={`grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] ${
+        className={`grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] ${
           pagination ? "min-h-[60vh]" : ""
         }`}
       >

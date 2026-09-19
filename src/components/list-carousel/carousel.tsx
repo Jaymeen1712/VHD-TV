@@ -35,6 +35,7 @@ const ListCarousel = ({ data, isLoading = false }: ListCarouselProps) => {
 
   return (
     <Swiper
+      className="list-carousel"
       navigation={true}
       modules={[Navigation, FreeMode]}
       slidesPerView={"auto"}

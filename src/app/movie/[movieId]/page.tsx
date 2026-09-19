@@ -43,7 +43,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
   if (!movieSingleResponse) notFound();
 
   return (
-    <div className="animate-fade-in flex-1 bg-neutral-900">
+    <div className="animate-fade-in flex-1 flow-root bg-neutral-900">
       {!movieSingleErrors && !movieSingleCreditsErrors && (
         <MediaShowContainer
           data={movieSingleResponse}

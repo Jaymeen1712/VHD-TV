@@ -54,7 +54,7 @@ Callers (server components) destructure `{ response, errors }` and conditionally
 App Router pages, mostly async server components that fetch data directly and pass it to presentational client components in a sibling `components/` folder:
 - `/` → `page.tsx` (dashboard), `/home`, `/movies`, `/tv-series`, `/movie/[movieId]`, `/series/[seriesId]`, `/search`, `/watch/[media]/[mediaId]` (video player, `media` is `"movie"` or `"tv"`).
 - Centralized route strings (for links, not API calls) live in `src/app/paths.ts` — use this instead of hardcoding hrefs.
-- Static nav config (`dashboardMenuItems`) and the set of routes with a transparent header (`HEADER_TRANSPARENT`) live in `src/utils/index.ts`.
+- Static nav config (`dashboardMenuItems`) lives in `src/utils/index.ts`. The header is a sticky glass bar (`src/components/header.tsx`, rendered inside `AppScroll` in `src/app/layout.tsx`); hero sections pull their content up underneath it via the `--header-h` CSS var so the backdrop shows through.
 
 ### Shared UI (`src/components/`)
 

@@ -1,22 +1,22 @@
-.swiper {
+.list-carousel.swiper {
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
+.list-carousel .swiper-slide {
   width: auto;
 }
 
-.swiper-button-next {
+.list-carousel .swiper-button-next {
   background-image: url(../../images/right-angle.svg);
 }
 
-.swiper-button-prev {
+.list-carousel .swiper-button-prev {
   background-image: url(../../images/left-angle.svg);
 }
 
-.swiper-button-next,
-.swiper-button-prev {
+.list-carousel .swiper-button-next,
+.list-carousel .swiper-button-prev {
   background-color: rgb(38 38 38);
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -26,44 +26,44 @@
   transition: opacity 0.2s ease;
 }
 
-.swiper-horizontal > .swiper-button-prev,
-.swiper-horizontal > .swiper-button-next {
+.list-carousel.swiper-horizontal > .swiper-button-prev,
+.list-carousel.swiper-horizontal > .swiper-button-next {
   top: 0;
   height: 100%;
   margin: 0;
 }
 
-.swiper-horizontal > .swiper-button-prev {
+.list-carousel.swiper-horizontal > .swiper-button-prev {
   left: 0;
   right: auto;
 }
 
-.swiper-horizontal > .swiper-button-next {
+.list-carousel.swiper-horizontal > .swiper-button-next {
   right: 0;
   left: auto;
 }
 
-.swiper-button-next::after {
+.list-carousel .swiper-button-next::after {
   display: none;
 }
 
-.swiper-button-prev::after {
+.list-carousel .swiper-button-prev::after {
   display: none;
 }
 
-.swiper-button-next:hover {
+.list-carousel .swiper-button-next:hover {
   background-image: url(../../images/right-angle-cyan.svg);
 }
 
-.swiper-button-prev:hover {
+.list-carousel .swiper-button-prev:hover {
   background-image: url(../../images/left-angle-cyan.svg);
 }
 
-.swiper:hover .swiper-button-next,
-.swiper:hover .swiper-button-prev {
+.list-carousel.swiper:hover .swiper-button-next,
+.list-carousel.swiper:hover .swiper-button-prev {
   opacity: 0.4;
 }
 
-.swiper-button-disabled {
+.list-carousel .swiper-button-disabled {
   opacity: 0 !important;
 }

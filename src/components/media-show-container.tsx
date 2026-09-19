@@ -11,7 +11,7 @@ interface MediaShowContainerProps {
 
 const MediaShowContainer = ({ data, credits, type }: MediaShowContainerProps) => {
   return (
-    <div className="relative isolate overflow-hidden">
+    <div className="relative isolate -mt-(--header-h) overflow-hidden pt-(--header-h)">
       {data && <GradientImageContainer path={data.backdrop_path} />}
       <SingleMediaContainer credits={credits} data={data} type={type} />
     </div>

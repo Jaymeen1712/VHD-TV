@@ -58,12 +58,14 @@ const Header = () => {
 
   return (
     <Navbar
-      className={`relative isolate shrink-0 border-b border-primary/20 bg-neutral-950/85 backdrop-blur-md transition-shadow duration-300 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-b before:from-[#2a8085]/25 before:to-transparent before:content-[''] ${
-        isScrolled ? "shadow-lg shadow-black/20" : ""
+      className={`isolate z-50 shrink-0 backdrop-blur-xl transition-colors duration-300 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-b before:from-[#2a8085]/20 before:to-transparent before:content-[''] ${
+        isScrolled
+          ? "border-b border-white/10 !bg-neutral-950/80 shadow-lg shadow-black/20"
+          : "border-b border-transparent !bg-neutral-950/25"
       }`}
       classNames={{ wrapper: "page-shell !px-(--shell-x)" }}
       height="72px"
-      position="static"
+      position="sticky"
       maxWidth="full"
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
@@ -75,7 +77,7 @@ const Header = () => {
         />
         <NavbarBrand>
           <Link href={paths.home()}>
-            <Logo size={32} />
+            <Logo size={40} />
           </Link>
         </NavbarBrand>
       </NavbarContent>

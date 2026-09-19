@@ -15,7 +15,7 @@ const CarouselContainer = ({
   );
 
   return (
-    <section className="relative isolate">
+    <section className="relative isolate -mt-(--header-h) pt-(--header-h)">
       <GradientImageContainer path={dashboardImage} />
       <div className="page-shell flex min-h-[34rem] items-center py-20 md:min-h-[550px] md:py-24 lg:min-h-[600px]">
         <Carousel
