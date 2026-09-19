@@ -16,7 +16,7 @@ const PlayerContainerDetails = ({ data }: { data: CommonCardType }) => {
   };
 
   return (
-    <div className="flex min-h-[90px] items-center justify-between gap-4 bg-neutral-900 px-(--shell-x) py-4">
+    <div className="flex min-h-[90px] items-center justify-between gap-4 rounded-t-xl bg-neutral-900 px-4 py-4 sm:px-6">
       <h1 className="truncate text-lg font-bold text-white">
         {data.title || data.name}
       </h1>

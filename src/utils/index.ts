@@ -3,16 +3,19 @@ export const dashboardMenuItems = [
     key: "home",
     name: "Home",
     link: "/home",
+    activeSegments: ["home"],
   },
   {
     key: "movies",
     name: "Movies",
     link: "/movies",
+    activeSegments: ["movies", "movie"],
   },
   {
     key: "tv-series",
     name: "Tv series",
     link: "/tv-series",
+    activeSegments: ["tv-series", "series"],
   },
 ];
 
@@ -41,5 +44,3 @@ export function capitalizeFirstLetter(inputString: string | undefined | null) {
   if (!inputString) return "";
   return inputString.charAt(0).toUpperCase() + inputString.slice(1);
 }
-
-export const HEADER_TRANSPARENT = ["movie", "home", "series"];

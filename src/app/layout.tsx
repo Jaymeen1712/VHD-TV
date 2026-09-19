@@ -1,3 +1,4 @@
+import AppScroll from "@/components/app-scroll";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Analytics } from "@vercel/analytics/next";
@@ -27,10 +28,12 @@ export default function RootLayout({
       <body className={pathway_Extreme.className}>
         <Analytics />
         <Providers>
-          <div className="flex min-h-screen flex-col">
+          <div className="flex h-dvh flex-col overflow-hidden">
             <Header />
-            {children}
-            <Footer />
+            <AppScroll>
+              {children}
+              <Footer />
+            </AppScroll>
           </div>
         </Providers>
       </body>

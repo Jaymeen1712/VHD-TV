@@ -26,7 +26,7 @@ const MovieCardSkeleton = ({ className = "" }: MovieCardSkeletonProps) => {
         <div className="animate-shimmer absolute inset-0 bg-gradient-to-r from-transparent via-neutral-600/20 to-transparent"></div>
       </CardBody>
 
-      <CardFooter className="absolute bottom-3 left-3 w-[89%] justify-between rounded-lg py-2">
+      <CardFooter className="absolute inset-x-3 bottom-3 w-auto justify-between rounded-lg py-2">
         <div className="w-full grid-rows-2">
           {/* Chips skeleton */}
           <div className="mb-2 flex items-center justify-start space-x-2">

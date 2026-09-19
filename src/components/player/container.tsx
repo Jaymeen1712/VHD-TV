@@ -18,13 +18,9 @@ const PlayerContainer = ({
 }: PlayerContainerProps) => {
   return (
     <div className="page-shell w-full">
-      <div className="mx-auto py-12">
-        <div className="flex justify-center">
-          <div className="items-center justify-center">
-            {mediaDetails && <PlayerContainerDetails data={mediaDetails} />}
-            {videoDetails && <Player data={videoDetails} />}
-          </div>
-        </div>
+      <div className="mx-auto w-full max-w-[1100px] py-8">
+        {mediaDetails && <PlayerContainerDetails data={mediaDetails} />}
+        {videoDetails && <Player data={videoDetails} />}
       </div>
     </div>
   );

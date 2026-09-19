@@ -34,14 +34,14 @@ const Player = ({ data }: PlayerProps) => {
 
   if (!sources.length) {
     return (
-      <div className="flex w-full max-w-[1200px] items-center justify-center py-24 text-white/70">
+      <div className="flex w-full items-center justify-center py-24 text-white/70">
         No trailer is available for this title yet.
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-[1200px]">
+    <div className="w-full overflow-hidden rounded-b-xl">
       <Plyr
         source={{
           sources,

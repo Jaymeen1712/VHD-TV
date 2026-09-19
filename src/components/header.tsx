@@ -2,7 +2,7 @@
 
 import paths from "@/app/paths";
 import Logo from "@/components/logo";
-import { HEADER_TRANSPARENT, dashboardMenuItems } from "@/utils";
+import { dashboardMenuItems } from "@/utils";
 import {
   Navbar,
   NavbarBrand,
@@ -19,10 +19,7 @@ import Search from "./search/search";
 
 const Header = () => {
   const pathname = usePathname();
-  const selectedMenuItem = pathname.split("/")[1];
-  const isTransparentRoute = HEADER_TRANSPARENT.includes(
-    selectedMenuItem.toLowerCase(),
-  );
+  const selectedMenuItem = pathname.split("/")[1]?.toLowerCase();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,42 +31,39 @@ const Header = () => {
   }
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const scrollEl = document.getElementById("app-scroll");
+    if (!scrollEl) return;
+
+    const handleScroll = () => setIsScrolled(scrollEl.scrollTop > 20);
     handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    scrollEl.addEventListener("scroll", handleScroll, { passive: true });
+    return () => scrollEl.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isSolid = !isTransparentRoute || isScrolled;
-
   const renderMenuItem = (item: (typeof dashboardMenuItems)[number]) => {
-    const isActive = selectedMenuItem === item.key;
+    const isActive = item.activeSegments.includes(selectedMenuItem);
     return (
       <Link
         href={item.link}
-        className={`relative py-1 text-sm font-semibold tracking-wide transition-colors hover:text-primary ${
-          isActive ? "text-primary" : "text-white"
-        } ${
+        className={`rounded-full px-4 py-2 text-sm font-semibold tracking-wide transition-colors ${
           isActive
-            ? "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-primary"
-            : ""
+            ? "bg-primary/15 text-primary"
+            : "text-white/80 hover:bg-white/10 hover:text-white"
         }`}
       >
-        {item.name.toUpperCase()}
+        {item.name}
       </Link>
     );
   };
 
   return (
     <Navbar
-      className={`top-0 z-50 transition-colors duration-300 ${
-        isSolid
-          ? "border-b border-white/10 bg-neutral-950/80 backdrop-blur-md"
-          : "border-b border-transparent bg-gradient-to-b from-black/80 via-black/40 to-transparent"
+      className={`relative isolate shrink-0 border-b border-primary/20 bg-neutral-950/85 backdrop-blur-md transition-shadow duration-300 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-b before:from-[#2a8085]/25 before:to-transparent before:content-[''] ${
+        isScrolled ? "shadow-lg shadow-black/20" : ""
       }`}
       classNames={{ wrapper: "page-shell !px-(--shell-x)" }}
       height="72px"
-      position="sticky"
+      position="static"
       maxWidth="full"
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
@@ -87,14 +81,14 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarContent justify="center" className="hidden min-w-0 flex-1 md:flex">
-        <NavbarItem className="w-full max-w-md">
+        <NavbarItem className="w-full max-w-2xl lg:max-w-3xl">
           <Search />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent
         justify="end"
-        className="hidden !grow-0 !basis-auto gap-8 md:flex"
+        className="hidden !grow-0 !basis-auto gap-2 md:flex"
       >
         {dashboardMenuItems.map((item) => (
           <NavbarItem key={item.key}>{renderMenuItem(item)}</NavbarItem>
@@ -106,7 +100,9 @@ const Header = () => {
           <Search />
         </NavbarMenuItem>
         {dashboardMenuItems.map((item) => (
-          <NavbarMenuItem key={item.key}>{renderMenuItem(item)}</NavbarMenuItem>
+          <NavbarMenuItem key={item.key} className="w-fit">
+            {renderMenuItem(item)}
+          </NavbarMenuItem>
         ))}
       </NavbarMenu>
     </Navbar>

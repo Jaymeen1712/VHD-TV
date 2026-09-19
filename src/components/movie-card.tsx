@@ -39,14 +39,14 @@ const MovieCard = ({ data, className = "" }: MovieCardProps) => {
       shadow="md"
       isPressable
     >
-      <CardHeader className="absolute left-2 top-1">
+      <CardHeader className="absolute left-2 top-1 z-10">
         <h1 className="text-xl font-bold text-white drop-shadow-xl">HD</h1>
       </CardHeader>
       <CardBody className="overflow-hidden p-0">
         {posterSrc && (
           <Image
             alt={title}
-            className="h-full w-full transform object-fill transition-transform group-hover:scale-110"
+            className="h-full w-full transform object-cover transition-transform group-hover:scale-110"
             src={posterSrc}
             width={width}
             height={height}
@@ -54,7 +54,7 @@ const MovieCard = ({ data, className = "" }: MovieCardProps) => {
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent from-40% to-neutral-800" />
       </CardBody>
-      <CardFooter className="delay-20 absolute bottom-3 left-3 w-[89%] justify-between rounded-lg py-2 transition ease-in-out group-hover:-translate-y-1 group-hover:bg-white/10 group-hover:backdrop-blur-sm">
+      <CardFooter className="delay-20 absolute inset-x-3 bottom-3 w-auto justify-between rounded-lg py-2 transition ease-in-out group-hover:-translate-y-1 group-hover:bg-white/10 group-hover:backdrop-blur-sm">
         <div className="grid-rows-2">
           <div className="mb-2 flex items-center justify-start space-x-2">
             {chips.map((chip) => (

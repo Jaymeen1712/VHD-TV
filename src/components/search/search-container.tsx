@@ -24,7 +24,7 @@ const SearchContainer = ({
   };
 
   return (
-    <div className="absolute left-0 top-full z-50 mt-2 w-full min-w-[320px] rounded-xl border border-white/10 bg-neutral-900/95 px-4 py-4 shadow-2xl backdrop-blur-xl">
+    <div className="scrollbar-brand absolute left-0 top-full z-50 mt-2 max-h-[70vh] w-full min-w-[320px] overflow-y-auto rounded-xl border border-white/10 bg-neutral-900/95 px-4 py-4 shadow-2xl backdrop-blur-xl">
       {isLoading ? (
         <div className="space-y-3 py-1">
           {Array.from({ length: 3 }, (_, index) => (
