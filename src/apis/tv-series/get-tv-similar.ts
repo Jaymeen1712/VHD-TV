@@ -1,18 +1,11 @@
-"use server";
-
-import apiClient from "../api-client";
 import { API_ROUTES } from "@/utils/enum";
+import { CommonCardType, TmdbPaginatedResponse } from "@/types";
+import { tmdbRequest } from "../request";
 
-const getTvSimilarAPI = async (tvId: number) => {
-  let errors = null;
-  let response = null;
-  try {
-    response = await apiClient.get(API_ROUTES.TV_SIMILAR.replace(":tvId", tvId.toString()));
-    response = response.data;
-    return { response, errors };
-  } catch (error) {
-    return { response, errors: error };
-  }
-};
+const getTvSimilarAPI = (tvId: string, page: number = 1) =>
+  tmdbRequest<TmdbPaginatedResponse<CommonCardType>>(API_ROUTES.TV_SIMILAR, {
+    routeParams: { tvId },
+    params: { page },
+  });
 
 export default getTvSimilarAPI;

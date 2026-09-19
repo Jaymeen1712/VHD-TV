@@ -9,14 +9,11 @@ const COMMON_API = {
 
 const MOVIE_API = {
   MOVIE_TRENDING: `/trending/movie/${TIME_WINDOW}`,
-  MOVIE_IMAGES: "/movie/:movieId/images",
   MOVIE_POPULAR: "/movie/popular",
   MOVIE_LATEST: "/movie/now_playing",
   MOVIE_SINGLE: "/movie",
   MOVIE_CREDITS: "/movie/:movieId/credits",
   MOVIE_SIMILAR: "/movie/:movieId/similar",
-  MOVIE_TOP_RATED: "/movie/top_rated",
-  MOVIE_VIDEOS: "/movie/:movieId/videos",
 };
 
 const TV_API = {

@@ -1,18 +1,11 @@
-"use server";
-
-import apiClient from "../api-client";
 import { API_ROUTES } from "@/utils/enum";
+import { CommonCardType, TmdbPaginatedResponse } from "@/types";
+import { tmdbRequest } from "../request";
 
-const getMoviesSimilarAPI = async (movieId: number) => {
-  let errors = null;
-  let response = null;
-  try {
-    response = await apiClient.get(API_ROUTES.MOVIE_SIMILAR.replace(":movieId", movieId.toString()));
-    response = response.data;
-    return { response, errors };
-  } catch (error) {
-    return { response, errors: error };
-  }
-};
+const getMoviesSimilarAPI = (movieId: string, page: number = 1) =>
+  tmdbRequest<TmdbPaginatedResponse<CommonCardType>>(API_ROUTES.MOVIE_SIMILAR, {
+    routeParams: { movieId },
+    params: { page },
+  });
 
 export default getMoviesSimilarAPI;

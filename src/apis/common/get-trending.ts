@@ -1,18 +1,10 @@
-"use server";
-
 import { API_ROUTES } from "@/utils/enum";
-import apiClient from "../api-client";
+import { CommonCardType, TmdbPaginatedResponse } from "@/types";
+import { tmdbRequest } from "../request";
 
-const getTrendingAPI = async () => {
-  let errors = null;
-  let response = null;
-  try {
-    response = await apiClient.get(API_ROUTES.ALL_TRENDING);
-    response = response.data;
-    return { response, errors };
-  } catch (error) {
-    return { response, errors: error };
-  }
-};
+const getTrendingAPI = (page: number = 1) =>
+  tmdbRequest<TmdbPaginatedResponse<CommonCardType>>(API_ROUTES.ALL_TRENDING, {
+    params: { page },
+  });
 
 export default getTrendingAPI;
