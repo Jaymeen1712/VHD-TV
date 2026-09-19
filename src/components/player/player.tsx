@@ -1,9 +1,9 @@
 "use client";
 
 import { MediaVideoType } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 
-import Plyr, { PlyrSource } from "plyr-react";
+import { Plyr, PlyrSource } from "plyr-react";
 import "plyr-react/plyr.css";
 import { YOUTUBE_VIDEO_BASE_URL } from "@/utils";
 
@@ -21,42 +21,34 @@ const options = {
 };
 
 const Player = ({ data }: PlayerProps) => {
-  const [sources, setSources] = useState<PlyrSource["sources"]>([]);
+  const sources = useMemo<PlyrSource["sources"]>(() => {
+    if (!data) return [];
 
-  useEffect(() => {
-    if (data) {
-      const filteredSources = data
-        .filter(
-          (subData) =>
-            (subData.type === "Trailer" && subData.size === 2160) ||
-            subData.type === "Trailer",
-        )
-        .map((subData) => ({
-          src: `${YOUTUBE_VIDEO_BASE_URL}${subData.key}`,
-          provider: "youtube",
-        }));
-
-      const allSources = data.map((subData) => ({
+    return data
+      .filter((subData) => subData.site === "YouTube" && subData.type === "Trailer")
+      .map((subData) => ({
         src: `${YOUTUBE_VIDEO_BASE_URL}${subData.key}`,
-        provider: "youtube",
+        provider: "youtube" as const,
       }));
-
-      // @ts-ignore
-      setSources([...filteredSources, ...allSources]);
-    }
   }, [data]);
 
+  if (!sources.length) {
+    return (
+      <div className="flex w-full max-w-[1200px] items-center justify-center py-24 text-white/70">
+        No trailer is available for this title yet.
+      </div>
+    );
+  }
+
   return (
-    <div className="w-[1200px]">
-      {data && (
-        <Plyr
-          source={{
-            sources,
-            type: "video",
-          }}
-          options={options}
-        />
-      )}
+    <div className="w-full max-w-[1200px]">
+      <Plyr
+        source={{
+          sources,
+          type: "video",
+        }}
+        options={options}
+      />
     </div>
   );
 };

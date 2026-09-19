@@ -1,10 +1,14 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 
-const MovieCardSkeleton = () => {
+interface MovieCardSkeletonProps {
+  className?: string;
+}
+
+const MovieCardSkeleton = ({ className = "" }: MovieCardSkeletonProps) => {
   return (
     <Card
       radius="none"
-      className="3xl:w-[227px] 3xl:h-[337px] relative animate-pulse border-none lg:h-[320px] lg:w-[216px]"
+      className={`relative aspect-[2/3] h-full w-full animate-pulse border-none ${className}`}
       shadow="md"
     >
       <CardHeader className="absolute left-2 top-1 z-10">

@@ -1,50 +1,28 @@
-"use client";
-
 import { getTvLatestAPI } from "@/apis/tv-series";
+import paths from "@/app/paths";
 import MovieListContainer from "@/components/movie-list/container";
-import { CommonCardType } from "@/types";
-
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 import { FaAngleRight } from "react-icons/fa";
 
-const LatestTvList = () => {
-  const [latestTv, setLatestTv] = useState<CommonCardType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const { response: latestTv, errors: latestTvErrors } =
-        await getTvLatestAPI();
-
-      if (!latestTvErrors) {
-        latestTv.results.length > 20
-          ? setLatestTv(latestTv.results.slice(0, 20))
-          : setLatestTv(latestTv.results);
-      }
-      setIsLoading(false);
-    })();
-  }, []);
+const LatestTvList = async () => {
+  const { response, errors } = await getTvLatestAPI();
+  const latestTv = !errors && response ? response.results.slice(0, 20) : [];
 
   return (
     <MovieListContainer
       title="Latest TV Series"
       headerRight={
-        <button
-          className="group bg-none pt-1"
-          onClick={() => router.push("/tv-series")}
+        <Link
+          href={paths.tvSeries()}
+          className="group flex items-center gap-1 text-sm text-white/70 transition-colors hover:text-primary"
+          aria-label="View all TV series"
         >
-          <FaAngleRight
-            className={`text-white group-hover:text-primary`}
-            size={22}
-          />
-        </button>
+          View all
+          <FaAngleRight size={14} />
+        </Link>
       }
       data={latestTv}
       type="carousel"
-      isLoading={isLoading}
     />
   );
 };

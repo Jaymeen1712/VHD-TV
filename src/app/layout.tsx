@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={pathway_Extreme.className}>
         <Analytics />
         <Providers>
-          <div className="flex h-full flex-col">
+          <div className="flex min-h-screen flex-col">
             <Header />
             {children}
             <Footer />

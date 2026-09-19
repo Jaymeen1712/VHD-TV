@@ -16,13 +16,13 @@ const PlayerContainerDetails = ({ data }: { data: CommonCardType }) => {
   };
 
   return (
-    <div className="flex h-[90px] items-center justify-between bg-neutral-900 px-12">
-      <h1 className="text-lg font-bold text-white">
+    <div className="flex min-h-[90px] items-center justify-between gap-4 bg-neutral-900 px-(--shell-x) py-4">
+      <h1 className="truncate text-lg font-bold text-white">
         {data.title || data.name}
       </h1>
       <button
         onClick={handleDetailClick}
-        className="flex items-center justify-center text-lg font-bold text-white transition-colors hover:text-primary"
+        className="flex shrink-0 items-center justify-center text-lg font-bold text-white transition-colors hover:text-primary"
       >
         <FaInfoCircle color="white" className="mr-2" />
         Detail

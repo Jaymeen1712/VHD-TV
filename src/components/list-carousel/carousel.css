@@ -21,18 +21,26 @@
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center;
-  position: absolute;
-  top: 0;
-  right: 0;
   padding: 30px;
-  height: 100%;
-  margin: 0;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
-.swiper-button-prev{
+.swiper-horizontal > .swiper-button-prev,
+.swiper-horizontal > .swiper-button-next {
+  top: 0;
+  height: 100%;
+  margin: 0;
+}
+
+.swiper-horizontal > .swiper-button-prev {
   left: 0;
+  right: auto;
+}
+
+.swiper-horizontal > .swiper-button-next {
+  right: 0;
+  left: auto;
 }
 
 .swiper-button-next::after {

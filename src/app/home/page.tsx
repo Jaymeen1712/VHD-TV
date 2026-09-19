@@ -5,7 +5,7 @@ import TrendingList from "./components/trending-list";
 
 const HomePage = async () => {
   return (
-    <div className="flex-1 bg-neutral-900">
+    <div className="animate-fade-in flex-1 bg-neutral-900">
       <DashboardCarousel />
       <TrendingList />
       <LatestMoviesList />

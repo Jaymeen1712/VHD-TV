@@ -3,21 +3,23 @@ import React from "react";
 import SearchResultsContainer from "./components/search-results-container";
 
 interface SearchPageProps {
-  searchParams: {
-    keyword: string;
-  };
+  searchParams: Promise<{
+    keyword?: string;
+  }>;
 }
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
+  const { keyword } = await searchParams;
+
   const { response: searchMediaResponse, errors: searchMediaErrors } =
-    await getSearchMediaAPI(searchParams.keyword);
+    keyword ? await getSearchMediaAPI(keyword) : { response: null, errors: null };
 
   return (
-    <div className="flex-1 bg-neutral-900">
-      {!searchMediaErrors && (
+    <div className="animate-fade-in flex-1 bg-neutral-900">
+      {!searchMediaErrors && keyword && (
         <SearchResultsContainer
-          data={searchMediaResponse.results}
-          searchMedia={searchParams.keyword}
+          data={searchMediaResponse?.results}
+          searchMedia={keyword}
         />
       )}
     </div>

@@ -8,9 +8,9 @@ interface MovieListHeaderProps {
 const MovieListHeader = ({ title, headerRight }: MovieListHeaderProps) => {
   return (
     <div>
-      <div className="flex space-x-8 items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-white font-bold text-2xl">{title}</h1>
-        <div className="flex justify-center items-center">{headerRight}</div>
+        <div className="flex items-center">{headerRight}</div>
       </div>
     </div>
   );

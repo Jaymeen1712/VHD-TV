@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <div className="flex min-h-full items-center justify-center gap-8 bg-neutral-900">
+    <div className="flex flex-1 items-center justify-center gap-8 bg-neutral-900">
       {/* Logo Animation */}
       <div className="flex items-center justify-center text-7xl">
         <span className="font-bold text-primary ">V</span>

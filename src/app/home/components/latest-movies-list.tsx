@@ -1,50 +1,28 @@
-"use client";
-
 import { getMoviesLatestAPI } from "@/apis/movie";
+import paths from "@/app/paths";
 import MovieListContainer from "@/components/movie-list/container";
-import { CommonCardType } from "@/types";
-
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 import { FaAngleRight } from "react-icons/fa";
 
-const LatestMoviesList = () => {
-  const [latestMovies, setLatestMovies] = useState<CommonCardType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const { response: latestMovies, errors: latestMoviesErrors } =
-        await getMoviesLatestAPI();
-
-      if (!latestMoviesErrors) {
-        latestMovies.results.length > 20
-          ? setLatestMovies(latestMovies.results.slice(0, 20))
-          : setLatestMovies(latestMovies.results);
-      }
-      setIsLoading(false);
-    })();
-  }, []);
+const LatestMoviesList = async () => {
+  const { response, errors } = await getMoviesLatestAPI();
+  const latestMovies = !errors && response ? response.results.slice(0, 20) : [];
 
   return (
     <MovieListContainer
       title="Latest Movies"
       headerRight={
-        <button
-          className="group bg-none pt-1"
-          onClick={() => router.push("/movies")}
+        <Link
+          href={paths.movies()}
+          className="group flex items-center gap-1 text-sm text-white/70 transition-colors hover:text-primary"
+          aria-label="View all movies"
         >
-          <FaAngleRight
-            className={"text-white group-hover:text-primary"}
-            size={22}
-          />
-        </button>
+          View all
+          <FaAngleRight size={14} />
+        </Link>
       }
       data={latestMovies}
       type="carousel"
-      isLoading={isLoading}
     />
   );
 };

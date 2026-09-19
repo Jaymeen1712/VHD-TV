@@ -1,25 +1,51 @@
 import { getMediaDetailsAPI, getMediaVideosAPI } from "@/apis/common";
 import PlayerContainer from "@/components/player/container";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import React from "react";
 
 interface WatchPageProps {
-  params: {
+  params: Promise<{
     media: string;
-    mediaId: number;
+    mediaId: string;
+  }>;
+}
+
+const isValidMedia = (media: string): media is "movie" | "tv" =>
+  media === "movie" || media === "tv";
+
+export async function generateMetadata({
+  params,
+}: WatchPageProps): Promise<Metadata> {
+  const { media, mediaId } = await params;
+  if (!isValidMedia(media)) return {};
+
+  const { response } = await getMediaDetailsAPI(media, mediaId);
+  if (!response) return {};
+
+  return {
+    title: `Watch ${response.title || response.name} | VHD TV`,
   };
 }
 
 const WatchPage = async ({ params }: WatchPageProps) => {
-  const { response: mediaVideosResponse, errors: mediaVideosErrors } =
-  await getMediaVideosAPI(params.media, params.mediaId);
-  const { response: mediaDetailsResponse, errors: mediaDetailsErrors } =
-  await getMediaDetailsAPI(params.media, params.mediaId);
+  const { media, mediaId } = await params;
+
+  if (!isValidMedia(media)) notFound();
+
+  const [
+    { response: mediaVideosResponse, errors: mediaVideosErrors },
+    { response: mediaDetailsResponse, errors: mediaDetailsErrors },
+  ] = await Promise.all([
+    getMediaVideosAPI(media, mediaId),
+    getMediaDetailsAPI(media, mediaId),
+  ]);
 
   return (
-    <div className="flex-1 bg-neutral-800">
+    <div className="animate-fade-in flex-1 bg-neutral-800">
       {!mediaVideosErrors && !mediaDetailsErrors && (
         <PlayerContainer
-          videoDetails={mediaVideosResponse.results}
+          videoDetails={mediaVideosResponse?.results ?? null}
           mediaDetails={mediaDetailsResponse}
         />
       )}

@@ -1,8 +1,9 @@
-import { Button, Chip } from "@nextui-org/react";
+import paths from "@/app/paths";
+import { Button, Chip } from "@heroui/react";
+import Link from "next/link";
 import React from "react";
 import { FaPlay } from "react-icons/fa";
 import Rating from "../rating";
-import Link from "next/link";
 
 interface CarouselDetailsProps {
   chips?: string[];
@@ -21,8 +22,10 @@ const CarouselDetails = ({
   detailId,
   type,
 }: CarouselDetailsProps) => {
+  const isTv = type === "tv";
+
   return (
-    <div className="grid h-[75%]">
+    <div className="flex flex-col">
       <div className="mb-4 flex items-center justify-start space-x-2">
         {chips?.map((chip) => (
           <Chip
@@ -36,30 +39,29 @@ const CarouselDetails = ({
       </div>
       <h1
         className={
-          "hover:textColor text-4xl font-bold tracking-wide text-white hover:text-primary"
+          "text-2xl font-bold tracking-wide text-white hover:text-primary sm:text-3xl lg:text-4xl"
         }
       >
-        <Link href={`/${type === "tv" ? "series" : "movie"}/${detailId}`}>
+        <Link href={isTv ? paths.series(detailId) : paths.movie(detailId)}>
           {title}
         </Link>
       </h1>
       <div className="my-2 text-white">
         <Rating stop={rating} />
       </div>
-      <div className="mb-8 line-clamp-1 text-white">{description}</div>
-      <Link
-        href={`/watch/${type === "tv" ? "series" : "movie"}/${detailId}`}
+      <div className="mb-8 line-clamp-2 text-white md:line-clamp-3">
+        {description}
+      </div>
+      <Button
+        as={Link}
+        href={paths.watch(isTv ? "tv" : "movie", detailId)}
+        className={`group h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
       >
-        <Button
-          className={`group w-[12rem] items-center justify-center rounded-full bg-primary bg-opacity-30 px-8 py-7 hover:scale-110 hover:cursor-pointer hover:bg-opacity-100`}
-          disableRipple
-        >
-          <FaPlay className={`text-primary group-hover:text-black`} size={15} />
-          <h1 className={`ml-1 text-primary group-hover:text-black`}>
-            Watch now
-          </h1>
-        </Button>
-      </Link>
+        <FaPlay className={`text-primary group-hover:text-black`} size={15} />
+        <h1 className={`ml-1 text-primary group-hover:text-black`}>
+          Watch now
+        </h1>
+      </Button>
     </div>
   );
 };

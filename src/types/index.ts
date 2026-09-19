@@ -78,7 +78,7 @@ export interface SingleMediaType {
   adult: boolean;
   backdrop_path: string;
   created_by?: CreatedByEntity[] | null;
-  episode_run_time?: null[] | null;
+  episode_run_time?: number[] | null;
   first_air_date: string;
   genres?: GenresEntity[] | null;
   homepage: string;
@@ -237,4 +237,22 @@ export interface MediaVideoType {
   official: boolean;
   published_at: string;
   id: string;
+}
+
+export interface TmdbPaginatedResponse<T> {
+  page: number;
+  results: T[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface CreditsResponse {
+  id: number;
+  cast: CreditType[];
+  crew: CreditType[];
+}
+
+export interface MediaVideosResponse {
+  id: number;
+  results: MediaVideoType[];
 }

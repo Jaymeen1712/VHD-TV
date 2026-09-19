@@ -1,32 +1,35 @@
 "use client";
 
-import React, { MutableRefObject } from "react";
+import React, { forwardRef, MutableRefObject } from "react";
 import CarouselPaginationButton from "../controls/button";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { forwardRef } from "@nextui-org/react";
 import { SwiperRef } from "swiper/react";
 
 const CarouselPaginationButtons = forwardRef((props, ref) => {
   return (
-    <div className="grid grid-row-2 gap-6 items-center justify-center">
-      <CarouselPaginationButton
-        Icon={FaAngleRight}
-        handleClick={() => {
-          if (ref) {
-            (ref as MutableRefObject<SwiperRef>).current.swiper.slideNext();
-          }
-        }}
-      />
+    <div className="grid shrink-0 grid-rows-2 items-center justify-center gap-6">
       <CarouselPaginationButton
         Icon={FaAngleLeft}
+        label="Previous slide"
         handleClick={() => {
           if (ref) {
             (ref as MutableRefObject<SwiperRef>).current.swiper.slidePrev();
           }
         }}
       />
+      <CarouselPaginationButton
+        Icon={FaAngleRight}
+        label="Next slide"
+        handleClick={() => {
+          if (ref) {
+            (ref as MutableRefObject<SwiperRef>).current.swiper.slideNext();
+          }
+        }}
+      />
     </div>
   );
 });
+
+CarouselPaginationButtons.displayName = "CarouselPaginationButtons";
 
 export default CarouselPaginationButtons;

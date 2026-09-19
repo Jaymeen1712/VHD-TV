@@ -1,26 +1,44 @@
 "use client";
 
+import paths from "@/app/paths";
 import { CommonCardType } from "@/types";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import SearchList from "./search-list";
 
 interface SearchContainerProps {
   data: CommonCardType[] | undefined;
   search: string;
+  isLoading?: boolean;
 }
 
-const SearchContainer = ({ data, search }: SearchContainerProps) => {
+const SearchContainer = ({
+  data,
+  search,
+  isLoading = false,
+}: SearchContainerProps) => {
   const router = useRouter();
 
   const handleViewMore = () => {
-    router.push(`/search?keyword=${search}`);
+    router.push(paths.search(search));
   };
 
   return (
-    <>
-      {data && (
-        <div className="fixed mt-2 min-w-[600px] rounded-2xl border-2 border-white/50 bg-stone-900 px-6 py-4 shadow-xl backdrop-blur-xl">
+    <div className="absolute left-0 top-full z-50 mt-2 w-full min-w-[320px] rounded-xl border border-white/10 bg-neutral-900/95 px-4 py-4 shadow-2xl backdrop-blur-xl">
+      {isLoading ? (
+        <div className="space-y-3 py-1">
+          {Array.from({ length: 3 }, (_, index) => (
+            <div key={index} className="flex items-center gap-3">
+              <div className="h-[60px] w-[50px] animate-pulse rounded bg-neutral-700" />
+              <div className="flex-1 space-y-2">
+                <div className="h-3 w-2/3 animate-pulse rounded bg-neutral-700" />
+                <div className="h-3 w-1/3 animate-pulse rounded bg-neutral-700" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : data && data.length > 0 ? (
+        <>
           {data.slice(0, 5).map((subData) => (
             <div key={subData.id}>
               <SearchList data={subData} />
@@ -37,9 +55,11 @@ const SearchContainer = ({ data, search }: SearchContainerProps) => {
               View more
             </Button>
           </div>
-        </div>
+        </>
+      ) : (
+        <div className="py-2 text-center text-white/70">No results found</div>
       )}
-    </>
+    </div>
   );
 };
 

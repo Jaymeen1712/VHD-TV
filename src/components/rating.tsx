@@ -7,7 +7,7 @@ interface RatingProps {
 
 const Rating = ({ stop = 0 }: RatingProps) => {
   return (
-    <div className="flex items-centers space-x-1">
+    <div className="flex items-center space-x-1">
       {Array(Math.round(stop / 2))
         .fill(0)
         .map((_, index) => (
