@@ -1,13 +1,13 @@
 "use client";
 
 import paths from "@/app/paths";
-import { CommonCardType } from "@/types";
+import { SearchResultType } from "@/types";
 import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import SearchList from "./search-list";
 
 interface SearchContainerProps {
-  data: CommonCardType[] | undefined;
+  data: SearchResultType[] | undefined;
   search: string;
   isLoading?: boolean;
 }

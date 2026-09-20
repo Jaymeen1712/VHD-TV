@@ -23,8 +23,10 @@ export async function generateMetadata({
   const { response } = await getMediaDetailsAPI(media, mediaId);
   if (!response) return {};
 
+  const title = response.media_type === "movie" ? response.title : response.name;
+
   return {
-    title: `Watch ${response.title || response.name} | VHD TV`,
+    title: `Watch ${title} | VHD TV`,
   };
 }
 

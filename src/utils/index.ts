@@ -30,15 +30,8 @@ export function tmdbImage(
 
 export const YOUTUBE_VIDEO_BASE_URL = "https://www.youtube.com/watch?v="
 
-export function isTvCard(data: {
-  media_type?: string;
-  first_air_date?: string;
-}) {
-  return (
-    data.media_type === "tv" ||
-    (!data.media_type && Boolean(data.first_air_date))
-  );
-}
+/** ISO 3166-1 region used for language, certifications, and watch providers. */
+export const DEFAULT_REGION = "US";
 
 export function capitalizeFirstLetter(inputString: string | undefined | null) {
   if (!inputString) return "";

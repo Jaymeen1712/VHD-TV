@@ -94,21 +94,16 @@ const Carousel = ({
         >
           <>
             {commonDetails.map((detail, index) => {
-              const chips: string[] = ["HD"];
-              if (detail.media_type) {
-                chips.push(
-                  detail.media_type.toLowerCase() === "movie"
-                    ? "Movie"
-                    : "TV Series",
-                );
-              }
+              const isTv = detail.media_type === "tv";
+              const chips: string[] = [isTv ? "TV Series" : "Movie"];
+              detail.genre_names?.slice(0, 2).forEach((genre) => chips.push(genre));
 
               const year = (
-                detail.release_date || detail.first_air_date
+                isTv ? detail.first_air_date : detail.release_date
               )?.split("-")[0];
               if (year) chips.push(year);
 
-              const title = detail.title || detail.name || "Title";
+              const title = isTv ? detail.name : detail.title;
 
               return (
                 <SwiperSlide key={detail.id}>

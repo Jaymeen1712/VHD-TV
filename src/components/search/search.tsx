@@ -3,7 +3,7 @@
 import paths from "@/app/paths";
 import { getSearchMediaAPI } from "@/apis/common";
 import useDebounce from "@/hooks/useDebounce";
-import { CommonCardType } from "@/types";
+import { SearchResultType } from "@/types";
 import { Input, InputProps } from "@heroui/react";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -17,7 +17,7 @@ const Search = () => {
   const router = useRouter();
   const [prevPathname, setPrevPathname] = useState(pathname);
   const [searchResults, setSearchResults] = useState<
-    CommonCardType[] | undefined
+    SearchResultType[] | undefined
   >([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showSearchContainer, setShowSearchContainer] = useState(true);

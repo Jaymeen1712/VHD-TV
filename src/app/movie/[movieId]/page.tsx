@@ -1,8 +1,5 @@
-import {
-  getMovieCreditsAPI,
-  getMovieSingleAPI,
-  getMoviesSimilarAPI,
-} from "@/apis/movie";
+import { getMovieDetailAPI } from "@/apis/movie";
+import { normalizeCards } from "@/apis/normalize";
 import MediaShowContainer from "@/components/media-show-container";
 import SimilarContainer from "@/components/similar-container";
 import { Metadata } from "next";
@@ -17,7 +14,7 @@ export async function generateMetadata({
   params,
 }: MoviePageProps): Promise<Metadata> {
   const { movieId } = await params;
-  const { response } = await getMovieSingleAPI(movieId);
+  const { response } = await getMovieDetailAPI(movieId);
 
   if (!response) return {};
 
@@ -29,31 +26,21 @@ export async function generateMetadata({
 
 const MoviePage = async ({ params }: MoviePageProps) => {
   const { movieId } = await params;
+  const { response } = await getMovieDetailAPI(movieId);
 
-  const [
-    { response: movieSingleResponse, errors: movieSingleErrors },
-    { response: movieSingleCreditsResponse, errors: movieSingleCreditsErrors },
-    { response: moviesSimilarResponse, errors: moviesSimilarErrors },
-  ] = await Promise.all([
-    getMovieSingleAPI(movieId),
-    getMovieCreditsAPI(movieId),
-    getMoviesSimilarAPI(movieId),
-  ]);
+  if (!response) notFound();
 
-  if (!movieSingleResponse) notFound();
+  const recommended = await normalizeCards(
+    response.recommendations?.results?.length
+      ? response.recommendations.results
+      : response.similar?.results,
+    "movie",
+  );
 
   return (
     <div className="animate-fade-in flex-1 flow-root bg-neutral-900">
-      {!movieSingleErrors && !movieSingleCreditsErrors && (
-        <MediaShowContainer
-          data={movieSingleResponse}
-          credits={movieSingleCreditsResponse?.cast ?? []}
-          type="Movies"
-        />
-      )}
-      {!moviesSimilarErrors && (
-        <SimilarContainer data={moviesSimilarResponse?.results} />
-      )}
+      <MediaShowContainer data={response} />
+      <SimilarContainer data={recommended} />
     </div>
   );
 };

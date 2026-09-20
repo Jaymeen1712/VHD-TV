@@ -52,7 +52,8 @@ const MovieListBodyScroll = ({
       {pagination && (
         <div className="mt-12 flex w-full items-center justify-center">
           <Pagination
-            total={totalPages}
+            // TMDB hard-rejects page > 500, so the control shouldn't offer it.
+            total={Math.min(totalPages, 500)}
             page={currentPage}
             onChange={handlePageChange}
             radius="sm"

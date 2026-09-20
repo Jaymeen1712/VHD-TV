@@ -1,11 +1,12 @@
-import { Card, CardBody, CardFooter, CardHeader, Chip } from "@heroui/react";
+import { Card, CardBody, CardFooter, Chip } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { FaStar } from "react-icons/fa";
 
 import paths from "@/app/paths";
 import { CommonCardType } from "@/types";
-import { isTvCard, tmdbImage } from "@/utils";
+import { tmdbImage } from "@/utils";
 
 interface MovieCardProps {
   data: CommonCardType;
@@ -15,20 +16,18 @@ interface MovieCardProps {
 const MovieCard = ({ data, className = "" }: MovieCardProps) => {
   const width = 216;
   const height = 324;
-  const isTv = isTvCard(data);
+  const isTv = data.media_type === "tv";
 
-  const chips: string[] = ["HD"];
-  if (data.media_type) {
-    chips.push(isTv ? "TV Series" : "Movie");
-  }
-
+  const title = isTv ? data.name : data.title;
   const year = (isTv ? data.first_air_date : data.release_date)?.split(
     "-",
   )[0];
-  if (year) chips.push(year);
-
-  const title = data.title || data.name || "Title";
   const posterSrc = tmdbImage(data.poster_path);
+
+  const rating = data.vote_count > 0 ? data.vote_average.toFixed(1) : null;
+  const chips: string[] = [];
+  data.genre_names?.slice(0, 2).forEach((genre) => chips.push(genre));
+  if (year) chips.push(year);
 
   return (
     <Card
@@ -39,9 +38,6 @@ const MovieCard = ({ data, className = "" }: MovieCardProps) => {
       shadow="md"
       isPressable
     >
-      <CardHeader className="absolute left-2 top-1 z-10">
-        <h1 className="text-xl font-bold text-white drop-shadow-xl">HD</h1>
-      </CardHeader>
       <CardBody className="overflow-hidden p-0">
         {posterSrc && (
           <Image
@@ -56,7 +52,16 @@ const MovieCard = ({ data, className = "" }: MovieCardProps) => {
       </CardBody>
       <CardFooter className="delay-20 absolute inset-x-3 bottom-3 w-auto justify-between rounded-lg py-2 transition ease-in-out group-hover:-translate-y-1 group-hover:bg-white/10 group-hover:backdrop-blur-sm">
         <div className="grid-rows-2">
-          <div className="mb-2 flex items-center justify-start space-x-2">
+          <div className="mb-2 flex flex-wrap items-center justify-start gap-2">
+            {rating && (
+              <Chip
+                className="rounded-md bg-primary/30 p-0 text-primary"
+                size="sm"
+                startContent={<FaStar size={10} className="ml-2" />}
+              >
+                {rating}
+              </Chip>
+            )}
             {chips.map((chip) => (
               <Chip
                 key={chip}

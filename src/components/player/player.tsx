@@ -20,16 +20,40 @@ const options = {
   },
 };
 
+// Prefer an official Trailer, but fall back through Teaser/Clip/Featurette
+// rather than showing "no trailer" just because only a teaser exists.
+const TYPE_PRIORITY: Record<string, number> = {
+  Trailer: 0,
+  Teaser: 1,
+  Clip: 2,
+  Featurette: 3,
+};
+
 const Player = ({ data }: PlayerProps) => {
   const sources = useMemo<PlyrSource["sources"]>(() => {
     if (!data) return [];
 
-    return data
-      .filter((subData) => subData.site === "YouTube" && subData.type === "Trailer")
-      .map((subData) => ({
-        src: `${YOUTUBE_VIDEO_BASE_URL}${subData.key}`,
+    const best = [...data]
+      .filter((subData) => subData.site === "YouTube")
+      .sort((a, b) => {
+        if (a.official !== b.official) return a.official ? -1 : 1;
+        const typeDiff =
+          (TYPE_PRIORITY[a.type] ?? 99) - (TYPE_PRIORITY[b.type] ?? 99);
+        if (typeDiff !== 0) return typeDiff;
+        return (
+          new Date(b.published_at).getTime() -
+          new Date(a.published_at).getTime()
+        );
+      })[0];
+
+    if (!best) return [];
+
+    return [
+      {
+        src: `${YOUTUBE_VIDEO_BASE_URL}${best.key}`,
         provider: "youtube" as const,
-      }));
+      },
+    ];
   }, [data]);
 
   if (!sources.length) {

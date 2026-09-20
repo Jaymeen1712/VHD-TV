@@ -1,5 +1,5 @@
 import paths from "@/app/paths";
-import { CommonCardType } from "@/types";
+import { SearchResultType } from "@/types";
 import { capitalizeFirstLetter, tmdbImage } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,15 +7,16 @@ import React from "react";
 import { FaStar } from "react-icons/fa";
 
 interface SearchListProps {
-  data: CommonCardType;
+  data: SearchResultType;
 }
 
 const roundDot = <span className="mx-1 text-white/50">•</span>;
 
 const SearchList = ({ data }: SearchListProps) => {
-  const isMedia = data.media_type === "movie" || data.media_type === "tv";
+  const isPerson = data.media_type === "person";
+  const title = data.media_type === "movie" ? data.title : data.name;
   const imageSrc = tmdbImage(
-    isMedia ? data.poster_path : data.profile_path,
+    isPerson ? data.profile_path : data.poster_path,
     "w200",
   );
 
@@ -23,7 +24,7 @@ const SearchList = ({ data }: SearchListProps) => {
     <div className="group flex items-center gap-3 rounded-lg p-2 text-white transition-colors hover:cursor-pointer hover:bg-white/5">
       {imageSrc && (
         <Image
-          alt={data.title || data.name}
+          alt={title}
           src={imageSrc}
           width={40}
           height={60}
@@ -32,21 +33,28 @@ const SearchList = ({ data }: SearchListProps) => {
       )}
       <div>
         <h1 className="text-sm group-hover:text-primary">
-          {capitalizeFirstLetter(data.title || data.name)}
+          {capitalizeFirstLetter(title)}
         </h1>
-        {isMedia && (
+        {!isPerson && (
           <span className="flex items-center text-xs">
             {capitalizeFirstLetter(data.media_type)}
             {roundDot}
             <FaStar size={10} className="mr-2 text-white" />
             {data.vote_average.toFixed(1)}
             {roundDot}
-            {data.release_date
-              ? data.release_date.split("-")[0]
-              : data.first_air_date && data.first_air_date.split("-")[0]}
+            {(data.media_type === "movie"
+              ? data.release_date
+              : data.first_air_date
+            )?.split("-")[0]}
+            {data.genre_names?.[0] && (
+              <>
+                {roundDot}
+                {data.genre_names[0]}
+              </>
+            )}
           </span>
         )}
-        {data.media_type === "person" && (
+        {isPerson && (
           <span className="flex items-center text-xs">
             {capitalizeFirstLetter(data.known_for_department)}
             {roundDot}
@@ -56,7 +64,7 @@ const SearchList = ({ data }: SearchListProps) => {
     </div>
   );
 
-  if (!isMedia) return content;
+  if (isPerson) return content;
 
   return (
     <Link

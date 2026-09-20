@@ -1,6 +1,6 @@
 "use client";
 
-import { CommonCardType, MediaVideoType } from "@/types";
+import { MediaVideoType, SingleMediaType } from "@/types";
 import dynamic from "next/dynamic";
 import React from "react";
 import PlayerContainerDetails from "./details";
@@ -9,7 +9,7 @@ const Player = dynamic(() => import("./player"), { ssr: false });
 
 interface PlayerContainerProps {
   videoDetails: MediaVideoType[] | null;
-  mediaDetails: CommonCardType | null;
+  mediaDetails: SingleMediaType | null;
 }
 
 const PlayerContainer = ({
