@@ -26,7 +26,12 @@ const CarouselDetails = ({
 
   return (
     <div className="flex flex-col gap-4 lg:gap-5">
-      <div className="flex items-center justify-start gap-2">
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="300"
+        className="flex items-center justify-start gap-2"
+      >
         {chips?.map((chip) => (
           <Chip
             key={chip}
@@ -38,6 +43,9 @@ const CarouselDetails = ({
         ))}
       </div>
       <h1
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="360"
         className={
           "text-2xl font-bold tracking-wide text-white hover:text-primary sm:text-3xl lg:text-4xl"
         }
@@ -46,22 +54,41 @@ const CarouselDetails = ({
           {title}
         </Link>
       </h1>
-      <div className="text-white">
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="420"
+        className="text-white"
+      >
         <Rating stop={rating} />
       </div>
-      <div className="line-clamp-2 text-white md:line-clamp-3">
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="480"
+        className="line-clamp-6 text-white"
+      >
         {description}
       </div>
-      <Button
-        as={Link}
-        href={paths.watch(isTv ? "tv" : "movie", detailId)}
-        className={`group mt-2 h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="540"
       >
-        <FaPlay className={`text-primary group-hover:text-black`} size={15} />
-        <h1 className={`ml-1 text-primary group-hover:text-black`}>
-          Watch now
-        </h1>
-      </Button>
+        <Button
+          as={Link}
+          href={paths.watch(isTv ? "tv" : "movie", detailId)}
+          className={`group mt-2 h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
+        >
+          <FaPlay
+            className={`text-primary group-hover:text-black`}
+            size={15}
+          />
+          <h1 className={`ml-1 text-primary group-hover:text-black`}>
+            Watch now
+          </h1>
+        </Button>
+      </div>
     </div>
   );
 };

@@ -52,6 +52,12 @@ body {
   }
 }
 
+@media (width >= 48rem) {
+  :root {
+    --header-h: 5.625rem;
+  }
+}
+
 @media (width >= 64rem) {
   :root {
     --shell-x: 2.5rem;

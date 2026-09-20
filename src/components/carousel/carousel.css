@@ -1,0 +1,35 @@
+/* Scoped styles for the hero (dashboard) carousel only — see list-carousel/carousel.css
+   for the precedent of keeping Swiper overrides scoped per-instance. */
+
+.hero-swiper.swiper-creative .swiper-slide {
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* effect-creative stacks every slide on top of the active one; without this the
+   invisible (opacity: 0) prev/next slides still sit above the active slide's
+   links and swallow clicks/hovers. */
+.hero-swiper .swiper-slide {
+  pointer-events: none;
+}
+
+.hero-swiper .swiper-slide-active {
+  pointer-events: auto;
+}
+
+/* Parallax-driven elements: Swiper writes transition-duration inline per element
+   (the stagger), we own the easing curve here. */
+.hero-swiper [data-swiper-parallax],
+.hero-swiper [data-swiper-parallax-y],
+.hero-swiper [data-swiper-parallax-opacity] {
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-swiper.swiper-creative .swiper-slide,
+  .hero-swiper [data-swiper-parallax],
+  .hero-swiper [data-swiper-parallax-y],
+  .hero-swiper [data-swiper-parallax-opacity] {
+    transition-duration: 0ms !important;
+    transition-timing-function: linear;
+  }
+}

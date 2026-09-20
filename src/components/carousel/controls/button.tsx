@@ -5,20 +5,23 @@ import { IconType } from "react-icons";
 interface CarouselPaginationButtonProps {
   Icon: IconType;
   label: string;
+  isDisabled?: boolean;
   handleClick?: () => void;
 }
 
 const CarouselPaginationButton = ({
   Icon,
   label,
+  isDisabled,
   handleClick,
 }: CarouselPaginationButtonProps) => {
   return (
     <Button
-      className="w-fit bg-white/10 backdrop-blur-md hover:bg-white/30 group"
+      className="group w-fit bg-white/10 backdrop-blur-md hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white/10"
       size="md"
       radius="full"
       isIconOnly
+      isDisabled={isDisabled}
       aria-label={label}
       onPress={handleClick}
     >

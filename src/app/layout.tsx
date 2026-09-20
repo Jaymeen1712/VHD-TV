@@ -29,8 +29,8 @@ export default function RootLayout({
         <Analytics />
         <Providers>
           <div className="flex h-dvh flex-col overflow-hidden">
+            <Header />
             <AppScroll>
-              <Header />
               {children}
               <Footer />
             </AppScroll>

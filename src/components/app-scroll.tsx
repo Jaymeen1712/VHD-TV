@@ -15,7 +15,7 @@ const AppScroll = ({ children }: { children: React.ReactNode }) => {
     <div
       id="app-scroll"
       ref={scrollRef}
-      className="scrollbar-brand flex flex-1 flex-col overflow-y-auto"
+      className="scrollbar-brand flex flex-1 flex-col overflow-y-auto pt-(--header-h)"
     >
       {children}
     </div>
