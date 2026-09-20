@@ -44,11 +44,13 @@ body {
 :root {
   --shell-x: 1rem;
   --header-h: 4.5rem;
+  --card-w: 160px;
 }
 
 @media (width >= 40rem) {
   :root {
     --shell-x: 1.5rem;
+    --card-w: 180px;
   }
 }
 
@@ -61,6 +63,7 @@ body {
 @media (width >= 64rem) {
   :root {
     --shell-x: 2.5rem;
+    --card-w: 216px;
   }
 }
 
@@ -73,6 +76,12 @@ body {
 @media (width >= 96rem) {
   :root {
     --shell-x: 5rem;
+  }
+}
+
+@media (width >= 120rem) {
+  :root {
+    --card-w: 227px;
   }
 }
 

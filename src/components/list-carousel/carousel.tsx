@@ -19,7 +19,7 @@ interface ListCarouselProps {
 }
 
 const ListCarousel = ({ data, isLoading = false }: ListCarouselProps) => {
-  const cardWidth = "w-[160px] sm:w-[180px] lg:w-[216px] 3xl:w-[227px]";
+  const cardWidth = "w-(--card-w)";
 
   const renderMovieList = data.map((subData) => (
     <SwiperSlide key={subData.id}>

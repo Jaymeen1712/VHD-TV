@@ -25,13 +25,15 @@ const MovieListBodyScroll = ({
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
 
+  const cardWidth = "max-w-(--card-w)";
+
   const renderList = data.map((subData) => {
-    return <MovieCard key={subData.id} data={subData} />;
+    return <MovieCard key={subData.id} data={subData} className={cardWidth} />;
   });
 
   // Render skeleton cards while loading
   const renderSkeletonList = Array.from({ length: 20 }, (_, index) => (
-    <MovieCardSkeleton key={`skeleton-${index}`} />
+    <MovieCardSkeleton key={`skeleton-${index}`} className={cardWidth} />
   ));
 
   const handlePageChange: PaginationProps["onChange"] = (page) => {
@@ -43,7 +45,7 @@ const MovieListBodyScroll = ({
   return (
     <div>
       <div
-        className={`grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] ${
+        className={`grid grid-cols-[repeat(auto-fill,minmax(var(--card-w),1fr))] gap-3 ${
           pagination ? "min-h-[60vh]" : ""
         }`}
       >
