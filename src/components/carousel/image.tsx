@@ -20,7 +20,7 @@ const CarouselImage = ({
 
   return (
     <Link href={`/${type === "tv" ? "series" : "movie"}/${detailId}`}>
-      <div className="group relative flex cursor-pointer items-center justify-center">
+      <div className="group relative flex w-full max-w-[660px] cursor-pointer items-center justify-center sm:max-w-[740px] lg:max-w-[820px]">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform ">
           <div className="rounded-full bg-white/10 p-4 backdrop-blur-md duration-200 group-hover:bg-white/20 sm:p-7">
             <FaPlay
@@ -35,7 +35,7 @@ const CarouselImage = ({
           {...rest}
           width={width}
           height={height}
-          sizes="(max-width: 768px) 92vw, 45vw"
+          sizes="(max-width: 768px) 92vw, 43vw"
           priority={priority}
         />
       </div>

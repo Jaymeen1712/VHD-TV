@@ -34,6 +34,8 @@ const Carousel = ({
         <Swiper
           ref={swiperRef}
           onActiveIndexChange={handleSlideChange}
+          roundLengths
+          maxBackfaceHiddenSlides={0}
           className="min-w-0 max-w-full"
         >
           <>
@@ -56,22 +58,26 @@ const Carousel = ({
 
               return (
                 <SwiperSlide key={detail.id}>
-                  <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-14">
-                    <CarouselImage
-                      src={tmdbImage(detail.backdrop_path, "w780") ?? ""}
-                      alt={title}
-                      type={detail.media_type}
-                      detailId={detail.id}
-                      priority={index === 0}
-                    />
-                    <CarouselDetails
-                      detailId={detail.id}
-                      chips={chips}
-                      title={capitalizeFirstLetter(title)}
-                      rating={detail.vote_average}
-                      description={detail.overview}
-                      type={detail.media_type}
-                    />
+                  <div className="flex flex-col items-center gap-8 md:flex-row md:gap-16">
+                    <div className="w-full shrink-0 sm:max-w-[740px] lg:max-w-[820px]">
+                      <CarouselImage
+                        src={tmdbImage(detail.backdrop_path, "w780") ?? ""}
+                        alt={title}
+                        type={detail.media_type}
+                        detailId={detail.id}
+                        priority={index === 0}
+                      />
+                    </div>
+                    <div className="w-full min-w-0 md:flex-1">
+                      <CarouselDetails
+                        detailId={detail.id}
+                        chips={chips}
+                        title={capitalizeFirstLetter(title)}
+                        rating={detail.vote_average}
+                        description={detail.overview}
+                        type={detail.media_type}
+                      />
+                    </div>
                   </div>
                 </SwiperSlide>
               );

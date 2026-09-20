@@ -25,8 +25,8 @@ const CarouselDetails = ({
   const isTv = type === "tv";
 
   return (
-    <div className="flex flex-col">
-      <div className="mb-4 flex items-center justify-start space-x-2">
+    <div className="flex flex-col gap-4 lg:gap-5">
+      <div className="flex items-center justify-start gap-2">
         {chips?.map((chip) => (
           <Chip
             key={chip}
@@ -46,16 +46,16 @@ const CarouselDetails = ({
           {title}
         </Link>
       </h1>
-      <div className="my-2 text-white">
+      <div className="text-white">
         <Rating stop={rating} />
       </div>
-      <div className="mb-8 line-clamp-2 text-white md:line-clamp-3">
+      <div className="line-clamp-2 text-white md:line-clamp-3">
         {description}
       </div>
       <Button
         as={Link}
         href={paths.watch(isTv ? "tv" : "movie", detailId)}
-        className={`group h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
+        className={`group mt-2 h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
       >
         <FaPlay className={`text-primary group-hover:text-black`} size={15} />
         <h1 className={`ml-1 text-primary group-hover:text-black`}>
