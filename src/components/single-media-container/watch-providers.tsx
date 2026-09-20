@@ -54,7 +54,7 @@ const WatchProviders = ({ data }: WatchProvidersProps) => {
 
   return (
     <div className="mt-6 space-y-2">
-      <h1 className="mb-2 text-base font-bold text-white">Where to watch</h1>
+      <h2 className="mb-2 text-base font-bold text-white">Where to watch</h2>
       <ProviderRow
         label="Stream"
         providers={region.flatrate}

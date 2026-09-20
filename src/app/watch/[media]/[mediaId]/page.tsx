@@ -26,7 +26,14 @@ export async function generateMetadata({
   const title = response.media_type === "movie" ? response.title : response.name;
 
   return {
-    title: `Watch ${title} | VHD TV`,
+    title: `Watch ${title}`,
+    description:
+      response.overview ||
+      `Watch ${title} online in HD on VHD TV, with trailers and full details.`,
+    robots: {
+      index: false,
+      follow: true,
+    },
   };
 }
 

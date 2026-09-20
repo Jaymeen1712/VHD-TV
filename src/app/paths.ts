@@ -1,6 +1,6 @@
 const paths = {
   home() {
-    return "/home";
+    return "/";
   },
   movies() {
     return "/movies";

@@ -2,8 +2,8 @@ export const dashboardMenuItems = [
   {
     key: "home",
     name: "Home",
-    link: "/home",
-    activeSegments: ["home"],
+    link: "/",
+    activeSegments: ["", "home"],
   },
   {
     key: "movies",
@@ -18,6 +18,12 @@ export const dashboardMenuItems = [
     activeSegments: ["tv-series", "series"],
   },
 ];
+
+export const SITE_URL = "https://vhd-tv.vercel.app";
+export const SITE_NAME = "VHD TV";
+
+/** Absolute URL for canonicals, sitemap entries, and JSON-LD `@id`s. */
+export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();
 
 export const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 

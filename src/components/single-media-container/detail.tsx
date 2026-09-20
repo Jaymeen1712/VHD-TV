@@ -96,13 +96,18 @@ const MediaDetailsContainer = ({
       {/* Title */}
       <div className="mb-2 flex flex-wrap items-center gap-3">
         {titleLogo ? (
-          <Image
-            src={titleLogo}
-            alt={title}
-            width={300}
-            height={100}
-            className="h-auto max-h-[100px] w-auto max-w-[300px] object-contain"
-          />
+          <>
+            {/* The logo image is decorative — the real page <h1> stays in
+                the DOM for accessibility/SEO but is visually hidden. */}
+            <h1 className="sr-only">{title}</h1>
+            <Image
+              src={titleLogo}
+              alt={title}
+              width={300}
+              height={100}
+              className="h-auto max-h-[100px] w-auto max-w-[300px] object-contain"
+            />
+          </>
         ) : (
           <h1 className="text-4xl font-bold tracking-wide text-white">
             {title}
@@ -145,13 +150,13 @@ const MediaDetailsContainer = ({
 
       {/* overview */}
       <div className="mb-8">
-        <h1 className="mb-2 text-base text-white">Overview</h1>
+        <h2 className="mb-2 text-base text-white">Overview</h2>
         <p className="text-white">{data.overview}</p>
       </div>
 
       {data.credits?.cast.length ? (
         <div className="mb-8">
-          <h1 className="mb-2 text-base text-white">Cast</h1>
+          <h2 className="mb-2 text-base text-white">Cast</h2>
           <CastRow cast={data.credits.cast} />
         </div>
       ) : null}

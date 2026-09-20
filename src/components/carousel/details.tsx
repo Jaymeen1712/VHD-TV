@@ -42,7 +42,7 @@ const CarouselDetails = ({
           </Chip>
         ))}
       </div>
-      <h1
+      <h2
         data-swiper-parallax-y="18"
         data-swiper-parallax-opacity="0"
         data-swiper-parallax-duration="360"
@@ -53,7 +53,7 @@ const CarouselDetails = ({
         <Link href={isTv ? paths.series(detailId) : paths.movie(detailId)}>
           {title}
         </Link>
-      </h1>
+      </h2>
       <div
         data-swiper-parallax-y="18"
         data-swiper-parallax-opacity="0"
@@ -81,9 +81,9 @@ const CarouselDetails = ({
           className={`group mt-2 h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
         >
           <FaPlay className={`text-primary group-hover:text-black`} size={15} />
-          <h1 className={`ml-1 text-primary group-hover:text-black`}>
+          <span className={`ml-1 text-primary group-hover:text-black`}>
             Watch Trailer
-          </h1>
+          </span>
         </Button>
       </div>
     </div>

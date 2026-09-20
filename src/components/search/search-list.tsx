@@ -32,9 +32,9 @@ const SearchList = ({ data }: SearchListProps) => {
         />
       )}
       <div>
-        <h1 className="text-sm group-hover:text-primary">
+        <h3 className="text-sm group-hover:text-primary">
           {capitalizeFirstLetter(title)}
-        </h1>
+        </h3>
         {!isPerson && (
           <span className="flex items-center text-xs">
             {capitalizeFirstLetter(data.media_type)}

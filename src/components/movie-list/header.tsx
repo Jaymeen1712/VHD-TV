@@ -9,7 +9,7 @@ const MovieListHeader = ({ title, headerRight }: MovieListHeaderProps) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-white font-bold text-2xl">{title}</h1>
+        <h2 className="text-white font-bold text-2xl">{title}</h2>
         <div className="flex items-center">{headerRight}</div>
       </div>
     </div>

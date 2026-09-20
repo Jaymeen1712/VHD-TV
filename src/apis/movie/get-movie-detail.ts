@@ -1,5 +1,6 @@
 import { API_ROUTES } from "@/utils/enum";
 import { MovieDetailType } from "@/types";
+import { cache } from "react";
 import { REVALIDATE, tmdbRequest } from "../request";
 
 // Consolidates what used to be 3 separate requests (single/credits/similar)
@@ -8,7 +9,9 @@ import { REVALIDATE, tmdbRequest } from "../request";
 const APPEND_TO_RESPONSE =
   "credits,videos,images,recommendations,similar,release_dates,external_ids,watch/providers";
 
-const getMovieDetailAPI = async (movieId: string) => {
+// Wrapped in `cache()` so the page component and `generateMetadata` (which
+// both fetch the same movie per request) share a single TMDB call.
+const getMovieDetailAPI = cache(async (movieId: string) => {
   const { response, errors } = await tmdbRequest<Omit<MovieDetailType, "media_type">>(
     API_ROUTES.MOVIE_SINGLE,
     {
@@ -27,6 +30,6 @@ const getMovieDetailAPI = async (movieId: string) => {
     response: { ...response, media_type: "movie" as const },
     errors: null,
   };
-};
+});
 
 export default getMovieDetailAPI;
