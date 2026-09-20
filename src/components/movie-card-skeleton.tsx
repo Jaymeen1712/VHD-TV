@@ -7,7 +7,7 @@ interface MovieCardSkeletonProps {
 const MovieCardSkeleton = ({ className = "" }: MovieCardSkeletonProps) => {
   return (
     <Card
-      radius="lg"
+      radius="none"
       className={`relative aspect-[2/3] h-full w-full animate-pulse overflow-hidden border-none ${className}`}
       shadow="md"
     >
@@ -32,7 +32,7 @@ const MovieCardSkeleton = ({ className = "" }: MovieCardSkeletonProps) => {
       </div>
 
       {/* Bottom strip skeleton */}
-      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-black/85 px-2.5 py-1.5">
+      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-black/85 px-3 py-1.5">
         <div className="h-3 w-10 animate-pulse rounded bg-neutral-600"></div>
         <div className="h-3 w-px bg-white/20"></div>
         <div className="h-3 w-20 animate-pulse rounded bg-neutral-600"></div>

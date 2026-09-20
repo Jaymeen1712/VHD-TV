@@ -29,12 +29,15 @@ const MovieCard = ({ data, className = "" }: MovieCardProps) => {
     <Card
       as={Link}
       href={isTv ? paths.series(data.id) : paths.movie(data.id)}
-      radius="lg"
+      radius="none"
       className={`group relative aspect-[2/3] h-full w-full overflow-hidden border-none ${className}`}
       shadow="md"
       isPressable
     >
-      <CardBody className="overflow-hidden p-0">
+      {/* HeroUI's CardBody ships overflow-y-auto; without overriding it the
+          zoomed poster on hover creates scrollable overflow and can paint a
+          scrollbar over the card. */}
+      <CardBody className="overflow-hidden overflow-y-hidden p-0">
         {posterSrc && (
           <Image
             alt={title}
@@ -57,10 +60,10 @@ const MovieCard = ({ data, className = "" }: MovieCardProps) => {
         {title}
       </h3>
 
-      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-black/85 px-2.5 py-1.5 backdrop-blur-sm">
+      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-black/85 px-3 py-1.5 backdrop-blur-sm">
         {rating && (
-          <div className="flex shrink-0 items-center gap-1 text-[11px] font-semibold text-white">
-            <FaStar size={10} className="text-yellow-400" />
+          <div className="flex shrink-0 items-center gap-1 text-[11px] font-semibold leading-none text-white">
+            <FaStar size={11} className="shrink-0 text-yellow-400" />
             {rating}/10
           </div>
         )}
@@ -68,7 +71,7 @@ const MovieCard = ({ data, className = "" }: MovieCardProps) => {
           <div className="h-3 w-px shrink-0 bg-white/20" />
         )}
         {genres.length > 0 && (
-          <div className="truncate text-[11px] text-white/60">
+          <div className="min-w-0 flex-1 truncate text-[11px] text-white/60">
             {genres.join(" · ")}
           </div>
         )}

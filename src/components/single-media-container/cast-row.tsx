@@ -12,7 +12,7 @@ const CastRow = ({ cast }: CastRowProps) => {
   if (!cast.length) return null;
 
   return (
-    <div className="scrollbar-brand flex gap-4 overflow-x-auto pb-2">
+    <div className="scrollbar-brand -mx-1 -mt-1 flex gap-4 overflow-x-auto px-1 pb-2 pt-1">
       {cast.slice(0, 10).map((member) => {
         const src = tmdbImage(member.profile_path, "w200");
         return (
