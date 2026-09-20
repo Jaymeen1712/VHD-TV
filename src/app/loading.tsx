@@ -8,12 +8,6 @@ const Loading = () => {
           HD
         </span>
       </div>
-      <div className="flex items-center justify-center">
-        {/* Loading Spinner */}
-        <div className="relative">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-neutral-700 border-t-primary"></div>
-        </div>
-      </div>
     </div>
   );
 };
