@@ -21,6 +21,9 @@ const PlayerContainer = ({
       <div className="mx-auto w-full max-w-[1100px] py-8">
         {mediaDetails && <PlayerContainerDetails data={mediaDetails} />}
         {videoDetails && <Player data={videoDetails} />}
+        <p className="mt-3 text-center text-xs text-white/40">
+          VHD TV plays official trailers and clips.
+        </p>
       </div>
     </div>
   );

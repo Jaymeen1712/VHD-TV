@@ -7,9 +7,10 @@ import { DEFAULT_REGION, tmdbImage } from "@/utils";
 interface ProviderRowProps {
   label: string;
   providers?: WatchProviderEntity[];
+  link: string;
 }
 
-const ProviderRow = ({ label, providers }: ProviderRowProps) => {
+const ProviderRow = ({ label, providers, link }: ProviderRowProps) => {
   if (!providers?.length) return null;
 
   return (
@@ -20,15 +21,22 @@ const ProviderRow = ({ label, providers }: ProviderRowProps) => {
           const src = tmdbImage(provider.logo_path, "w200");
           if (!src) return null;
           return (
-            <Image
+            <a
               key={provider.provider_id}
-              src={src}
-              alt={provider.provider_name}
+              href={link}
+              target="_blank"
+              rel="noreferrer"
               title={provider.provider_name}
-              width={36}
-              height={36}
-              className="rounded-lg"
-            />
+              className="rounded-lg transition hover:ring-2 hover:ring-primary"
+            >
+              <Image
+                src={src}
+                alt={provider.provider_name}
+                width={36}
+                height={36}
+                className="rounded-lg"
+              />
+            </a>
           );
         })}
       </div>
@@ -47,9 +55,13 @@ const WatchProviders = ({ data }: WatchProvidersProps) => {
   return (
     <div className="mt-6 space-y-2">
       <h1 className="mb-2 text-base font-bold text-white">Where to watch</h1>
-      <ProviderRow label="Stream" providers={region.flatrate} />
-      <ProviderRow label="Rent" providers={region.rent} />
-      <ProviderRow label="Buy" providers={region.buy} />
+      <ProviderRow
+        label="Stream"
+        providers={region.flatrate}
+        link={region.link}
+      />
+      <ProviderRow label="Rent" providers={region.rent} link={region.link} />
+      <ProviderRow label="Buy" providers={region.buy} link={region.link} />
       <a
         href={region.link}
         target="_blank"

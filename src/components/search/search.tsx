@@ -1,7 +1,7 @@
 "use client";
 
 import paths from "@/app/paths";
-import { getSearchMediaAPI } from "@/apis/common";
+import getSearchMediaAPI from "@/apis/common/get-search-media";
 import useDebounce from "@/hooks/useDebounce";
 import { SearchResultType } from "@/types";
 import { Input, InputProps } from "@heroui/react";

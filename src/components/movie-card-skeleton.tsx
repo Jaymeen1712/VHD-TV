@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
+import { Card, CardBody, CardHeader } from "@heroui/react";
 
 interface MovieCardSkeletonProps {
   className?: string;
@@ -7,12 +7,12 @@ interface MovieCardSkeletonProps {
 const MovieCardSkeleton = ({ className = "" }: MovieCardSkeletonProps) => {
   return (
     <Card
-      radius="none"
-      className={`relative aspect-[2/3] h-full w-full animate-pulse border-none ${className}`}
+      radius="lg"
+      className={`relative aspect-[2/3] h-full w-full animate-pulse overflow-hidden border-none ${className}`}
       shadow="md"
     >
-      <CardHeader className="absolute left-2 top-1 z-10">
-        <div className="h-6 w-8 rounded bg-neutral-700"></div>
+      <CardHeader className="absolute left-2 top-2 z-10">
+        <div className="h-5 w-10 rounded-md bg-neutral-700"></div>
       </CardHeader>
 
       <CardBody className="overflow-hidden p-0">
@@ -20,28 +20,23 @@ const MovieCardSkeleton = ({ className = "" }: MovieCardSkeletonProps) => {
         <div className="h-full w-full animate-pulse bg-neutral-700"></div>
 
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-40% to-neutral-800" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-black/95" />
 
         {/* Shimmer effect */}
-        <div className="animate-shimmer absolute inset-0 bg-gradient-to-r from-transparent via-neutral-600/20 to-transparent"></div>
+        <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-neutral-600/20 to-transparent"></div>
       </CardBody>
 
-      <CardFooter className="absolute inset-x-3 bottom-3 w-auto justify-between rounded-lg py-2">
-        <div className="w-full grid-rows-2">
-          {/* Chips skeleton */}
-          <div className="mb-2 flex items-center justify-start space-x-2">
-            <div className="h-5 w-8 animate-pulse rounded-md bg-neutral-600"></div>
-            <div className="h-5 w-12 animate-pulse rounded-md bg-neutral-600"></div>
-            <div className="h-5 w-10 animate-pulse rounded-md bg-neutral-600"></div>
-          </div>
+      {/* Title skeleton */}
+      <div className="absolute inset-x-3 bottom-9 space-y-1">
+        <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-600"></div>
+      </div>
 
-          {/* Title skeleton */}
-          <div className="space-y-1">
-            <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-600"></div>
-            <div className="h-4 w-1/2 animate-pulse rounded bg-neutral-600"></div>
-          </div>
-        </div>
-      </CardFooter>
+      {/* Bottom strip skeleton */}
+      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-black/85 px-2.5 py-1.5">
+        <div className="h-3 w-10 animate-pulse rounded bg-neutral-600"></div>
+        <div className="h-3 w-px bg-white/20"></div>
+        <div className="h-3 w-20 animate-pulse rounded bg-neutral-600"></div>
+      </div>
     </Card>
   );
 };

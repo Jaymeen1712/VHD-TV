@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="flex flex-col gap-2">
             <Logo className="justify-start" />
             <p className="text-sm text-white/50">
-              Browse movies &amp; TV series.
+              Browse movies &amp; TV series. Official trailers and clips.
             </p>
           </div>
           <nav className="flex flex-col gap-2 sm:items-end">

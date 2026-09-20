@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 import { CastCreditType } from "@/types";
-import { tmdbImage } from "@/utils";
+import { tmdbImage, tmdbPersonUrl } from "@/utils";
 
 interface CastRowProps {
   cast: CastCreditType[];
@@ -16,8 +16,14 @@ const CastRow = ({ cast }: CastRowProps) => {
       {cast.slice(0, 10).map((member) => {
         const src = tmdbImage(member.profile_path, "w200");
         return (
-          <div key={member.credit_id} className="w-20 shrink-0 text-center">
-            <div className="relative mx-auto mb-1 h-20 w-20 overflow-hidden rounded-full bg-neutral-800">
+          <a
+            key={member.credit_id}
+            href={tmdbPersonUrl(member.id)}
+            target="_blank"
+            rel="noreferrer"
+            className="group w-20 shrink-0 text-center"
+          >
+            <div className="relative mx-auto mb-1 h-20 w-20 overflow-hidden rounded-full bg-neutral-800 ring-primary transition-all group-hover:ring-2">
               {src && (
                 <Image
                   src={src}
@@ -28,13 +34,11 @@ const CastRow = ({ cast }: CastRowProps) => {
                 />
               )}
             </div>
-            <p className="truncate text-xs font-medium text-white">
+            <p className="truncate text-xs font-medium text-white transition-colors group-hover:text-primary">
               {member.name}
             </p>
-            <p className="truncate text-xs text-white/50">
-              {member.character}
-            </p>
-          </div>
+            <p className="truncate text-xs text-white/50">{member.character}</p>
+          </a>
         );
       })}
     </div>

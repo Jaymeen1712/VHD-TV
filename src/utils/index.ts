@@ -28,7 +28,16 @@ export function tmdbImage(
   return path ? `${TMDB_IMAGE_BASE_URL}/${size}${path}` : null;
 }
 
-export const YOUTUBE_VIDEO_BASE_URL = "https://www.youtube.com/watch?v="
+export const YOUTUBE_VIDEO_BASE_URL = "https://www.youtube.com/watch?v=";
+
+export const TMDB_WEB_BASE_URL = "https://www.themoviedb.org";
+
+export const tmdbPersonUrl = (id: number) =>
+  `${TMDB_WEB_BASE_URL}/person/${id}`;
+export const tmdbCompanyUrl = (id: number) =>
+  `${TMDB_WEB_BASE_URL}/company/${id}`;
+export const tmdbNetworkUrl = (id: number) =>
+  `${TMDB_WEB_BASE_URL}/network/${id}`;
 
 /** ISO 3166-1 region used for language, certifications, and watch providers. */
 export const DEFAULT_REGION = "US";

@@ -1,3 +1,5 @@
+import "server-only";
+
 import { DEFAULT_REGION } from "@/utils";
 
 const TMDB_BASE_URL = process.env.NEXT_APP_BASE_URL;

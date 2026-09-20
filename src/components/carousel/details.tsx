@@ -80,12 +80,9 @@ const CarouselDetails = ({
           href={paths.watch(isTv ? "tv" : "movie", detailId)}
           className={`group mt-2 h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
         >
-          <FaPlay
-            className={`text-primary group-hover:text-black`}
-            size={15}
-          />
+          <FaPlay className={`text-primary group-hover:text-black`} size={15} />
           <h1 className={`ml-1 text-primary group-hover:text-black`}>
-            Watch now
+            Watch Trailer
           </h1>
         </Button>
       </div>

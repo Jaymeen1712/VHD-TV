@@ -17,7 +17,12 @@ const PlayerContainerDetails = ({ data }: { data: SingleMediaType }) => {
 
   return (
     <div className="flex min-h-[90px] items-center justify-between gap-4 rounded-t-xl bg-neutral-900 px-4 py-4 sm:px-6">
-      <h1 className="truncate text-lg font-bold text-white">{title}</h1>
+      <div className="flex min-w-0 items-center gap-2">
+        <h1 className="truncate text-lg font-bold text-white">{title}</h1>
+        <span className="shrink-0 rounded bg-primary/20 px-2 py-0.5 text-[10px] font-bold tracking-wider text-primary">
+          TRAILER
+        </span>
+      </div>
       <button
         onClick={handleDetailClick}
         className="flex shrink-0 items-center justify-center text-lg font-bold text-white transition-colors hover:text-primary"
