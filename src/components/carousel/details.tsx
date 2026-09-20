@@ -1,8 +1,9 @@
-import { Button, Chip } from "@nextui-org/react";
+import paths from "@/app/paths";
+import { Button, Chip } from "@heroui/react";
+import Link from "next/link";
 import React from "react";
 import { FaPlay } from "react-icons/fa";
 import Rating from "../rating";
-import Link from "next/link";
 
 interface CarouselDetailsProps {
   chips?: string[];
@@ -21,9 +22,16 @@ const CarouselDetails = ({
   detailId,
   type,
 }: CarouselDetailsProps) => {
+  const isTv = type === "tv";
+
   return (
-    <div className="grid h-[75%]">
-      <div className="mb-4 flex items-center justify-start space-x-2">
+    <div className="flex flex-col gap-4 lg:gap-5">
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="300"
+        className="flex items-center justify-start gap-2"
+      >
         {chips?.map((chip) => (
           <Chip
             key={chip}
@@ -34,32 +42,50 @@ const CarouselDetails = ({
           </Chip>
         ))}
       </div>
-      <h1
+      <h2
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="360"
         className={
-          "hover:textColor text-4xl font-bold tracking-wide text-white hover:text-primary"
+          "text-2xl font-bold tracking-wide text-white hover:text-primary sm:text-3xl lg:text-4xl"
         }
       >
-        <Link href={`/${type === "tv" ? "series" : "movie"}/${detailId}`}>
+        <Link href={isTv ? paths.series(detailId) : paths.movie(detailId)}>
           {title}
         </Link>
-      </h1>
-      <div className="my-2 text-white">
+      </h2>
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="420"
+        className="text-white"
+      >
         <Rating stop={rating} />
       </div>
-      <div className="mb-8 line-clamp-1 text-white">{description}</div>
-      <Link
-        href={`/watch/${type === "tv" ? "series" : "movie"}/${detailId}`}
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="480"
+        className="line-clamp-6 text-white"
+      >
+        {description}
+      </div>
+      <div
+        data-swiper-parallax-y="18"
+        data-swiper-parallax-opacity="0"
+        data-swiper-parallax-duration="540"
       >
         <Button
-          className={`group w-[12rem] items-center justify-center rounded-full bg-primary bg-opacity-30 px-8 py-7 hover:scale-110 hover:cursor-pointer hover:bg-opacity-100`}
-          disableRipple
+          as={Link}
+          href={paths.watch(isTv ? "tv" : "movie", detailId)}
+          className={`group mt-2 h-12 w-full items-center justify-center rounded-full bg-primary/30 px-8 transition-transform hover:scale-110 hover:cursor-pointer hover:bg-primary sm:w-[12rem]`}
         >
           <FaPlay className={`text-primary group-hover:text-black`} size={15} />
-          <h1 className={`ml-1 text-primary group-hover:text-black`}>
-            Watch now
-          </h1>
+          <span className={`ml-1 text-primary group-hover:text-black`}>
+            Watch Trailer
+          </span>
         </Button>
-      </Link>
+      </div>
     </div>
   );
 };

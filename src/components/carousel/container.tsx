@@ -1,24 +1,29 @@
+"use client";
+
+import GradientImageContainer from "@/components/gradient-image-container";
 import { CommonCardType } from "@/types";
-import React from "react";
+import React, { useState } from "react";
 import Carousel from "./carousel";
 
 const CarouselContainer = ({
   commonDetails,
-  setDashboardImage,
-  isLoading,
 }: {
   commonDetails: CommonCardType[];
-  setDashboardImage: React.Dispatch<React.SetStateAction<string>>;
-  isLoading: boolean;
 }) => {
+  const [dashboardImage, setDashboardImage] = useState(
+    commonDetails[0]?.backdrop_path ?? "",
+  );
+
   return (
-    <div className="mx-16 flex min-h-[550px] items-center">
-      <Carousel
-        commonDetails={commonDetails}
-        setDashboardImage={setDashboardImage}
-        isLoading={isLoading}
-      />
-    </div>
+    <section className="relative isolate -mt-(--header-h) pt-(--header-h)">
+      <GradientImageContainer path={dashboardImage} />
+      <div className="page-shell flex min-h-[34rem] items-center py-20 md:min-h-[550px] md:py-24 lg:min-h-[600px]">
+        <Carousel
+          commonDetails={commonDetails}
+          setDashboardImage={setDashboardImage}
+        />
+      </div>
+    </section>
   );
 };
 

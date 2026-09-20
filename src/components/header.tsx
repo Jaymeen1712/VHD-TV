@@ -1,64 +1,95 @@
 "use client";
 
+import paths from "@/app/paths";
 import Logo from "@/components/logo";
-import { HEADER_TRANSPARENT, dashboardMenuItems } from "@/utils";
+import { dashboardMenuItems } from "@/utils";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-} from "@nextui-org/react";
-import { usePathname, useRouter } from "next/navigation";
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from "@heroui/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import Search from "./search/search";
 
 const Header = () => {
   const pathname = usePathname();
-  const router = useRouter();
-  const selectedMenuItem = pathname.split("/")[1];
+  const selectedMenuItem = pathname.split("/")[1]?.toLowerCase();
 
-  const handleNavigation = (link: string) => {
-    router.push(link);
-  };
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
-  const menuItems = dashboardMenuItems.map((item) => (
-    <NavbarItem key={item.key}>
-      <button
-        onClick={() => handleNavigation(item.link)}
-        className={`transition-colors hover:text-primary ${
-          selectedMenuItem === item.key ? "text-primary" : "text-white"
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setIsMenuOpen(false);
+  }
+
+  const renderMenuItem = (item: (typeof dashboardMenuItems)[number]) => {
+    const isActive = item.activeSegments.includes(selectedMenuItem);
+    return (
+      <Link
+        href={item.link}
+        className={`text-sm font-semibold tracking-wide transition-colors ${
+          isActive ? "text-primary" : "text-white hover:text-primary"
         }`}
       >
         {item.name.toUpperCase()}
-      </button>
-    </NavbarItem>
-  ));
+      </Link>
+    );
+  };
 
   return (
     <Navbar
-      className={`hello m-0 items-center bg-neutral-950 shadow ${
-        HEADER_TRANSPARENT.includes(selectedMenuItem.toLowerCase()) &&
-        "bg-0 absolute left-0 right-0 top-0"
-      }`}
-      height={"90px"}
-      position="static"
-      maxWidth="2xl"
+      className="!bg-neutral-950/80 isolate z-50 fixed border-b border-white/10 shadow-lg shadow-black/20 backdrop-blur-xl backdrop-saturate-150"
+      classNames={{ wrapper: "px-(--shell-x)" }}
+      height="var(--header-h)"
+      position="sticky"
+      maxWidth="full"
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
     >
-      <NavbarBrand className="justify-center">
-        <button onClick={() => handleNavigation("/")}>
-          <Logo />
-        </button>
-      </NavbarBrand>
+      <NavbarContent justify="start" className="!grow-0 !basis-auto">
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="md:hidden"
+        />
+        <NavbarBrand className="justify-center">
+          <Link href={paths.home()}>
+            <Logo />
+          </Link>
+        </NavbarBrand>
+      </NavbarContent>
 
-      <NavbarContent justify="start" className="gap-12">
-        <NavbarItem>
+      <NavbarContent justify="center" className="hidden min-w-0 flex-1 md:flex">
+        <NavbarItem className="w-full max-w-[750px]">
           <Search />
         </NavbarItem>
-
-        {/* Menu Items */}
-        <NavbarContent justify="end">
-          <div className="mx-10 flex flex-row space-x-12">{menuItems}</div>
-        </NavbarContent>
       </NavbarContent>
+
+      <NavbarContent
+        justify="end"
+        className="hidden !grow-0 !basis-auto gap-12 md:flex"
+      >
+        {dashboardMenuItems.map((item) => (
+          <NavbarItem key={item.key}>{renderMenuItem(item)}</NavbarItem>
+        ))}
+      </NavbarContent>
+
+      <NavbarMenu className="!px-(--shell-x) gap-6 bg-neutral-950/95 pt-6 backdrop-blur-md">
+        <NavbarMenuItem>
+          <Search />
+        </NavbarMenuItem>
+        {dashboardMenuItems.map((item) => (
+          <NavbarMenuItem key={item.key} className="w-fit">
+            {renderMenuItem(item)}
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
     </Navbar>
   );
 };

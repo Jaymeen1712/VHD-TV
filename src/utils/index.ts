@@ -2,26 +2,53 @@ export const dashboardMenuItems = [
   {
     key: "home",
     name: "Home",
-    link: "/home",
+    link: "/",
+    activeSegments: ["", "home"],
   },
   {
     key: "movies",
     name: "Movies",
     link: "/movies",
+    activeSegments: ["movies", "movie"],
   },
   {
     key: "tv-series",
     name: "Tv series",
     link: "/tv-series",
+    activeSegments: ["tv-series", "series"],
   },
 ];
 
+export const SITE_URL = "https://vhd-tv.vercel.app";
+export const SITE_NAME = "VHD TV";
+
+/** Absolute URL for canonicals, sitemap entries, and JSON-LD `@id`s. */
+export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();
+
 export const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
-export const YOUTUBE_VIDEO_BASE_URL = "https://www.youtube.com/watch?v="
-
-export function capitalizeFirstLetter(inputString: string) {
-  return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+export function tmdbImage(
+  path: string | null | undefined,
+  size: "w200" | "w300" | "w500" | "w780" | "original" = "w500",
+) {
+  return path ? `${TMDB_IMAGE_BASE_URL}/${size}${path}` : null;
 }
 
-export const HEADER_TRANSPARENT = ["movie", "home", "series"];
+export const YOUTUBE_VIDEO_BASE_URL = "https://www.youtube.com/watch?v=";
+
+export const TMDB_WEB_BASE_URL = "https://www.themoviedb.org";
+
+export const tmdbPersonUrl = (id: number) =>
+  `${TMDB_WEB_BASE_URL}/person/${id}`;
+export const tmdbCompanyUrl = (id: number) =>
+  `${TMDB_WEB_BASE_URL}/company/${id}`;
+export const tmdbNetworkUrl = (id: number) =>
+  `${TMDB_WEB_BASE_URL}/network/${id}`;
+
+/** ISO 3166-1 region used for language, certifications, and watch providers. */
+export const DEFAULT_REGION = "US";
+
+export function capitalizeFirstLetter(inputString: string | undefined | null) {
+  if (!inputString) return "";
+  return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+}

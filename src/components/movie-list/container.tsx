@@ -1,6 +1,6 @@
+import ListCarousel from "@/components/list-carousel/carousel";
 import { CommonCardType } from "@/types";
 import React from "react";
-import MovieListBodyCarousel from "./body-carousel";
 import MovieListBodyScroll from "./body-scroll";
 import MovieListHeader from "./header";
 
@@ -10,7 +10,7 @@ interface MovieListContainerProps {
   headerRight?: React.ReactNode;
   type?: "scroll" | "carousel";
   pagination?: boolean;
-  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
+  totalPages?: number;
   isLoading?: boolean;
 }
 
@@ -20,23 +20,23 @@ const MovieListContainer = ({
   data,
   type = "scroll",
   pagination = false,
-  setCurrentPage,
+  totalPages = 1,
   isLoading = false,
 }: MovieListContainerProps) => {
   return (
-    <div className="mx-16 my-24">
+    <div className="page-shell animate-fade-up my-12">
       <MovieListHeader title={title} headerRight={headerRight} />
-      <div className="min-h-1300 my-6">
+      <div className="my-6">
         {(data || isLoading) &&
           (type === "scroll" ? (
             <MovieListBodyScroll
               data={data || []}
               pagination={pagination}
-              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
               isLoading={isLoading}
             />
           ) : (
-            <MovieListBodyCarousel data={data || []} isLoading={isLoading} />
+            <ListCarousel data={data || []} isLoading={isLoading} />
           ))}
       </div>
     </div>

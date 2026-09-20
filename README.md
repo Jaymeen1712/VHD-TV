@@ -2,14 +2,16 @@
 
 | Command         | Description              |
 | --------------- | ------------------------ |
-| `npm run dev`   | Start development server |
-| `npm run build` | Build for production     |
-| `npm run start` | Start production build   |
-| `npm run lint`  | Run lint checks          |
+| `npm run dev`       | Start development server |
+| `npm run build`     | Build for production     |
+| `npm run start`     | Start production build   |
+| `npm run lint`      | Run lint checks          |
+| `npm run typecheck` | Run TypeScript checks    |
+| `npm run format`    | Format code with Prettier|
 
 ---
 
-![Echo Chat Screenshot](./public/vhd-tv-img.png)
+![VHD TV Screenshot](./public/vhd-tv-img.png)
 
 ## 🧑‍💻 About the Project
 
@@ -21,6 +23,6 @@ It demonstrates clean UI design, component reusability, and optimized client-sid
 ## 🔗 Links
 
 - **Live:** [https://vhd-tv.vercel.app](https://vhd-tv.vercel.app/)
-- **GitHub:** [https://github.com/Jaymeen1712/Next-14-TMDB-Movie-Series-WebApp](https://github.com/Jaymeen1712/Next-14-TMDB-Movie-Series-WebApp)
+- **GitHub:** [https://github.com/Jaymeen1712/VHD-TV](https://github.com/Jaymeen1712/VHD-TV)
 
 ---

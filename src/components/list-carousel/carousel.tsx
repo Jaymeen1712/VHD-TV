@@ -19,20 +19,23 @@ interface ListCarouselProps {
 }
 
 const ListCarousel = ({ data, isLoading = false }: ListCarouselProps) => {
+  const cardWidth = "w-(--card-w)";
+
   const renderMovieList = data.map((subData) => (
     <SwiperSlide key={subData.id}>
-      <MovieCard data={subData} />
+      <MovieCard data={subData} className={cardWidth} />
     </SwiperSlide>
   ));
 
   const renderSkeletonList = Array.from({ length: 10 }, (_, index) => (
     <SwiperSlide key={`skeleton-${index}`}>
-      <MovieCardSkeleton />
+      <MovieCardSkeleton className={cardWidth} />
     </SwiperSlide>
   ));
 
   return (
     <Swiper
+      className="list-carousel"
       navigation={true}
       modules={[Navigation, FreeMode]}
       slidesPerView={"auto"}

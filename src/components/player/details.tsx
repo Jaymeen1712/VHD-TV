@@ -1,28 +1,31 @@
 "use client";
 
-import { CommonCardType } from "@/types";
+import { SingleMediaType } from "@/types";
 import { useRouter } from "next/navigation";
 import { FaInfoCircle } from "react-icons/fa";
 
-const PlayerContainerDetails = ({ data }: { data: CommonCardType }) => {
+import paths from "@/app/paths";
+
+const PlayerContainerDetails = ({ data }: { data: SingleMediaType }) => {
   const router = useRouter();
+  const isTv = data.media_type === "tv";
+  const title = isTv ? data.name : data.title;
 
   const handleDetailClick = () => {
-    const path =
-      !data.first_air_date || data.media_type === "movie"
-        ? "/movie"
-        : "/series";
-    router.push(`${path}/${data.id}`);
+    router.push(isTv ? paths.series(data.id) : paths.movie(data.id));
   };
 
   return (
-    <div className="flex h-[90px] items-center justify-between bg-neutral-900 px-12">
-      <h1 className="text-lg font-bold text-white">
-        {data.title || data.name}
-      </h1>
+    <div className="flex min-h-[90px] items-center justify-between gap-4 rounded-t-xl bg-neutral-900 px-4 py-4 sm:px-6">
+      <div className="flex min-w-0 items-center gap-2">
+        <h1 className="truncate text-lg font-bold text-white">{title}</h1>
+        <span className="shrink-0 rounded bg-primary/20 px-2 py-0.5 text-[10px] font-bold tracking-wider text-primary">
+          TRAILER
+        </span>
+      </div>
       <button
         onClick={handleDetailClick}
-        className="flex items-center justify-center text-lg font-bold text-white transition-colors hover:text-primary"
+        className="flex shrink-0 items-center justify-center text-lg font-bold text-white transition-colors hover:text-primary"
       >
         <FaInfoCircle color="white" className="mr-2" />
         Detail

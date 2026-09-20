@@ -1,23 +1,26 @@
-"use server";
-
-import apiClient from "../api-client";
 import { API_ROUTES } from "@/utils/enum";
+import { SingleMediaType } from "@/types";
+import { REVALIDATE, tmdbRequest } from "../request";
 
-const getMediaDetailsAPI = async (media: string, mediaId: number) => {
-  let errors = null;
-  let response = null;
-  try {
-    response = await apiClient.get(
-      API_ROUTES.MEDIA_DETAILS.replace(":media", media).replace(
-        ":mediaId",
-        mediaId.toString(),
-      ),
-    );
-    response = response.data;
-    return { response, errors };
-  } catch (error) {
-    return { response, errors: error };
-  }
+/**
+ * Lightweight detail fetch (no append_to_response) used only by the /watch
+ * page, which just needs a title and id. For the full detail pages, use
+ * getMovieDetailAPI / getTvDetailAPI instead.
+ */
+const getMediaDetailsAPI = async (media: "movie" | "tv", mediaId: string) => {
+  const { response, errors } = await tmdbRequest<Omit<SingleMediaType, "media_type">>(
+    API_ROUTES.MEDIA_DETAILS,
+    { routeParams: { media, mediaId }, revalidate: REVALIDATE.DETAIL },
+  );
+
+  if (!response) return { response: null, errors };
+
+  // TMDB's raw /movie/:id and /tv/:id payloads carry no media_type field —
+  // stamp it from the route so callers get a real discriminated union.
+  return {
+    response: { ...response, media_type: media } as SingleMediaType,
+    errors: null,
+  };
 };
 
 export default getMediaDetailsAPI;

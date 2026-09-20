@@ -1,9 +1,15 @@
 import React from "react";
 
-const Logo = ({ size = 48 }: { size?: 48 | 72 | 128 }) => {
+const Logo = ({
+  size = 48,
+  className = "",
+}: {
+  size?: number;
+  className?: string;
+}) => {
   return (
     <div
-      className={"flex items-center justify-center"}
+      className={`flex items-center justify-center ${className}`}
       style={{
         fontSize: `${size}px`,
       }}

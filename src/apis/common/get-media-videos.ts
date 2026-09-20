@@ -1,23 +1,11 @@
-"use server";
-
-import apiClient from "../api-client";
 import { API_ROUTES } from "@/utils/enum";
+import { MediaVideosResponse } from "@/types";
+import { REVALIDATE, tmdbRequest } from "../request";
 
-const getMediaVideosAPI = async (media: string, mediaId: number) => {
-  let errors = null;
-  let response = null;
-  try {
-    response = await apiClient.get(
-      API_ROUTES.MEDIA_VIDEOS.replace(":media", media).replace(
-        ":mediaId",
-        mediaId.toString(),
-      ),
-    );
-    response = response.data;
-    return { response, errors };
-  } catch (error) {
-    return { response, errors: error };
-  }
-};
+const getMediaVideosAPI = (media: string, mediaId: string) =>
+  tmdbRequest<MediaVideosResponse>(API_ROUTES.MEDIA_VIDEOS, {
+    routeParams: { media, mediaId },
+    revalidate: REVALIDATE.DETAIL,
+  });
 
 export default getMediaVideosAPI;

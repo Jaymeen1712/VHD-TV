@@ -1,9 +1,9 @@
 "use client";
 
 import { MediaVideoType } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 
-import Plyr, { PlyrSource } from "plyr-react";
+import { Plyr, PlyrSource } from "plyr-react";
 import "plyr-react/plyr.css";
 import { YOUTUBE_VIDEO_BASE_URL } from "@/utils";
 
@@ -20,43 +20,59 @@ const options = {
   },
 };
 
+// Prefer an official Trailer, but fall back through Teaser/Clip/Featurette
+// rather than showing "no trailer" just because only a teaser exists.
+const TYPE_PRIORITY: Record<string, number> = {
+  Trailer: 0,
+  Teaser: 1,
+  Clip: 2,
+  Featurette: 3,
+};
+
 const Player = ({ data }: PlayerProps) => {
-  const [sources, setSources] = useState<PlyrSource["sources"]>([]);
+  const sources = useMemo<PlyrSource["sources"]>(() => {
+    if (!data) return [];
 
-  useEffect(() => {
-    if (data) {
-      const filteredSources = data
-        .filter(
-          (subData) =>
-            (subData.type === "Trailer" && subData.size === 2160) ||
-            subData.type === "Trailer",
-        )
-        .map((subData) => ({
-          src: `${YOUTUBE_VIDEO_BASE_URL}${subData.key}`,
-          provider: "youtube",
-        }));
+    const best = [...data]
+      .filter((subData) => subData.site === "YouTube")
+      .sort((a, b) => {
+        if (a.official !== b.official) return a.official ? -1 : 1;
+        const typeDiff =
+          (TYPE_PRIORITY[a.type] ?? 99) - (TYPE_PRIORITY[b.type] ?? 99);
+        if (typeDiff !== 0) return typeDiff;
+        return (
+          new Date(b.published_at).getTime() -
+          new Date(a.published_at).getTime()
+        );
+      })[0];
 
-      const allSources = data.map((subData) => ({
-        src: `${YOUTUBE_VIDEO_BASE_URL}${subData.key}`,
-        provider: "youtube",
-      }));
+    if (!best) return [];
 
-      // @ts-ignore
-      setSources([...filteredSources, ...allSources]);
-    }
+    return [
+      {
+        src: `${YOUTUBE_VIDEO_BASE_URL}${best.key}`,
+        provider: "youtube" as const,
+      },
+    ];
   }, [data]);
 
+  if (!sources.length) {
+    return (
+      <div className="flex w-full items-center justify-center py-24 text-white/70">
+        No trailer is available for this title yet.
+      </div>
+    );
+  }
+
   return (
-    <div className="w-[1200px]">
-      {data && (
-        <Plyr
-          source={{
-            sources,
-            type: "video",
-          }}
-          options={options}
-        />
-      )}
+    <div className="w-full overflow-hidden rounded-b-xl">
+      <Plyr
+        source={{
+          sources,
+          type: "video",
+        }}
+        options={options}
+      />
     </div>
   );
 };

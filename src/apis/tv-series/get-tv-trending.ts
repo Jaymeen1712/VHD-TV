@@ -1,18 +1,23 @@
-"use server";
-
-import apiClient from "../api-client";
 import { API_ROUTES } from "@/utils/enum";
+import { RawCard, TmdbPaginatedResponse } from "@/types";
+import { normalizeCards } from "../normalize";
+import { REVALIDATE, tmdbRequest } from "../request";
 
-const getTvTrendingAPI = async () => {
-  let errors = null;
-  let response = null;
-  try {
-    response = await apiClient.get(API_ROUTES.TV_TRENDING);
-    response = response.data;
-    return { response, errors };
-  } catch (error) {
-    return { response, errors: error };
-  }
+const getTvTrendingAPI = async (page: number = 1) => {
+  const { response, errors } = await tmdbRequest<TmdbPaginatedResponse<RawCard>>(
+    API_ROUTES.TV_TRENDING,
+    { params: { page }, revalidate: REVALIDATE.LIST },
+  );
+
+  if (!response) return { response: null, errors };
+
+  return {
+    response: {
+      ...response,
+      results: await normalizeCards(response.results, "tv"),
+    },
+    errors: null,
+  };
 };
 
 export default getTvTrendingAPI;

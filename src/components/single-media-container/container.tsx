@@ -1,48 +1,46 @@
-import { TMDB_IMAGE_BASE_URL } from "@/utils";
+import { tmdbImage } from "@/utils";
+import { getCertification } from "@/utils/certification";
 import Image from "next/image";
 import React from "react";
 import MediaDetailsContainer from "./detail";
-import { CreditType, SingleMediaType } from "@/types";
+import { SingleMediaType } from "@/types";
 
 interface SingleMediaContainerProps {
   data: SingleMediaType | null;
-  credits: CreditType[] | null;
-  type: string;
+  titleLogo?: string | null;
 }
 
-const SingleMediaContainer = ({ data, credits, type }: SingleMediaContainerProps) => {
+const SingleMediaContainer = ({ data, titleLogo }: SingleMediaContainerProps) => {
+  const posterSrc = data ? tmdbImage(data.poster_path, "original") : null;
+  const title = data ? (data.media_type === "tv" ? data.name : data.title) : "";
+  const certification = data ? getCertification(data) : null;
+
   return (
-    <div className="w-full px-60">
-      <div className="relative z-30 mx-auto pb-36 pt-48">
-        <div className="flex justify-center">
-          <div className="flex justify-center">
-            <div className="relative h-full w-[10%] bg-transparent pt-2 backdrop-blur-xl backdrop-brightness-150">
-              <div className="absolute inset-0 left-auto top-[10%] w-[180%]">
-                {data && (
-                  <>
-                    <div className="absolute left-5 top-5 text-xl font-bold text-white drop-shadow-xl">
-                      HD
-                    </div>
-                    <Image
-                      src={`${TMDB_IMAGE_BASE_URL}/original${data.poster_path}`}
-                      alt={data.title}
-                      width={1920}
-                      height={1080}
-                    />
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="w-[90%] bg-transparent backdrop-blur-xl backdrop-brightness-125">
-              {data && credits && (
-                <MediaDetailsContainer
-                  data={data}
-                  credits={credits}
-                  mediaType={type}
+    <div className="page-shell w-full">
+      <div className="relative mx-auto flex flex-col items-center gap-6 pb-20 pt-12 lg:flex-row lg:items-start lg:gap-0 lg:pt-16">
+        {data && (
+          <div className="relative z-10 w-[200px] shrink-0 self-start overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10 sm:w-[240px] lg:-mr-20 lg:w-[260px] lg:translate-y-10">
+            <div className="relative aspect-[2/3] bg-neutral-800">
+              {certification && (
+                <div className="absolute left-3 top-2 z-10 rounded bg-black/60 px-2 py-0.5 text-sm font-bold text-white drop-shadow-xl">
+                  {certification}
+                </div>
+              )}
+              {posterSrc && (
+                <Image
+                  src={posterSrc}
+                  alt={title}
+                  fill
+                  sizes="260px"
+                  className="object-cover"
+                  priority
                 />
               )}
             </div>
           </div>
+        )}
+        <div className="min-w-0 flex-1 rounded-2xl bg-white/5 backdrop-blur-xl backdrop-brightness-125 lg:pl-28">
+          {data && <MediaDetailsContainer data={data} titleLogo={titleLogo} />}
         </div>
       </div>
     </div>

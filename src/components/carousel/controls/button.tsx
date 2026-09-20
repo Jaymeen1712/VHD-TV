@@ -1,24 +1,29 @@
-import { DefaultContext } from "@/context";
-import { Button } from "@nextui-org/react";
-import React, { MouseEventHandler } from "react";
+import { Button } from "@heroui/react";
+import React from "react";
 import { IconType } from "react-icons";
 
 interface CarouselPaginationButtonProps {
   Icon: IconType;
-  handleClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+  label: string;
+  isDisabled?: boolean;
+  handleClick?: () => void;
 }
 
 const CarouselPaginationButton = ({
   Icon,
+  label,
+  isDisabled,
   handleClick,
 }: CarouselPaginationButtonProps) => {
   return (
     <Button
-      className="w-fit bg-white bg-opacity-10 backdrop-blur-md hover:bg-opacity-30 group"
+      className="group w-fit bg-white/10 backdrop-blur-md hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white/10"
       size="md"
       radius="full"
       isIconOnly
-      onClick={handleClick}
+      isDisabled={isDisabled}
+      aria-label={label}
+      onPress={handleClick}
     >
       <Icon
         size={20}
